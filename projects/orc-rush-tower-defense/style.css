@@ -1,0 +1,172 @@
+/**
+ *  Variables
+**/
+
+:root {
+    /* CHANGES MUST BE APPLIED BOTH HERE & MAIN.JS  */
+    --GAME-DIMENSIONS:  800px;
+    --BLOCK-SIZE:       40px;
+    --MOB-SIZE:         15px;
+    --HEALTH_BAR_SIZE:  30px;
+    /* CHANGES MUST BE APPLIED BOTH HERE & MAIN.JS  */
+}
+
+/**
+ *  Main
+**/
+
+#wrap {
+    display: flex;
+    flex: 1 2;
+    font-family: 'Open Sans',sans-serif;
+    font-size: 13px;
+    color: #564f4f;
+}
+
+#objects {
+    height: 80px;
+}
+
+#gameboard {
+    position: relative;
+    width: var(--GAME-DIMENSIONS);
+    background: lightgrey;
+    margin-right: 8px
+}
+
+#display, #gameboard {
+    display: inline-block;
+    height: var(--GAME-DIMENSIONS);
+}
+
+#display {
+    width: 200px;
+}
+
+#gold {
+    margin-left: 5px;
+    display: inline-block;
+}
+
+button {
+    display: block;
+}
+
+#startGame {
+    min-width: 200px;
+    position: relative;
+    width: auto;
+    border: 0px;
+    margin: 0px;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 1.75;
+    letter-spacing: 0.02857em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    color: rgb(255, 255, 255);
+    background-color: #e19d9d;
+    white-space: nowrap;
+}
+
+#placeTower, #placeWall {
+    background-repeat: no-repeat;
+    background-size: 25px 25px;
+    height: 25px;
+    width: 25px;
+    margin-bottom: 5px;
+}
+
+#placeTower {
+    background-image: url("https://i.imgur.com/ktbv6Sd.png");
+}
+
+#placeWall {
+    background-image: url("https://i.imgur.com/PQuiPUI.png");
+}
+
+#startGame, #gold-wrap, #level-wrap {
+    box-shadow: rgb(0 0 0 / 20%) 0px 3px 1px -2px, rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 12%) 0px 1px 5px 0px;
+}
+
+.health {
+    position: relative;
+    background: blue;
+    width: 30px;
+    top: 18px;
+    left: -7px;
+    height: 5px;
+}
+
+.gameblock {
+    height: var(--BLOCK-SIZE);
+    width: var(--BLOCK-SIZE);
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+    display: inline-flex;
+    background-image: url("https://i.imgur.com/UQKOGns.png");
+    background-repeat: no-repeat;
+    background-size: var(--BLOCK-SIZE) var(--BLOCK-SIZE);
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+.title {
+    display: block;
+    font-size: 12px;
+    margin-bottom: 5px;
+    line-height: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #969696;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.enemy {
+    position: absolute;
+    background-image: url("https://i.imgur.com/HRd0jU2.png");
+}
+
+.homebase {
+    background-image: url("https://i.imgur.com/o2rw1hE.png");
+}
+
+.enemy, .homebase {
+    height: var(--MOB-SIZE);
+    width: var(--MOB-SIZE);
+    border-radius: 50%;
+    background-size: var(--MOB-SIZE) var(--MOB-SIZE);
+}
+
+#level-wrap, #gold-wrap, #objects, #info-wrap {
+    border: 1px #eee;
+    padding: 10px;
+    margin-bottom: 8px;
+}
+
+#level-wrap {
+    background: #b5cfd7;
+}
+
+#gold-wrap {
+    background: #b5c385;
+}
+
+#objects {
+    background: #d7c4b5;
+}
+
+#info-wrap {
+    background: #eee;
+    display: none;
+    padding-bottom: 20px;
+}
