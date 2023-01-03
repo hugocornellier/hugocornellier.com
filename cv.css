@@ -39,12 +39,38 @@ h2 {
   font-size: 1.35rem;
 }
 
-.social-icons {
+.fa-play {
+  position: relative;
+  left: 1px;
+  font-size: 14px;
+}
+
+.social-icons, .project-icons {
   gap: 10px;
 }
 
 .social-icons img {
   width: 60px;
+}
+
+.project-icons div {
+  width: 40px;
+  height: 40px;
+}
+
+.project-icon {
+  color: white;
+  cursor: pointer;
+  background: #32363b;
+}
+
+.project-icon:hover {
+  background: #2471A3;
+}
+
+.project-icon img {
+  width: 26px;
+  height: 26px;
 }
 
 .list-icons {
@@ -107,7 +133,7 @@ section.resume-section {
 }
 
 section.resume-section .resume-item .resume-date {
-  min-width: none;
+  min-width: 0;
 }
 
 @media (min-width: 768px) {

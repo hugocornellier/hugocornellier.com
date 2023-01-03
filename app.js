@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+// Local env port to 3000 & live env port to 5000
 let port = app.settings['views'].substring(0, 5) === "/User" ? 3000 : 5000;
 app.use(express.static(__dirname));
 app.get('/', (req, res) => {
