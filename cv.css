@@ -119,7 +119,7 @@ h2 {
     width: 100%;
   }
   #sideNav .navbar-collapse .navbar-nav .nav-item {
-    display: block;
+    display:block;
   }
   #sideNav .navbar-collapse .navbar-nav .nav-item .nav-link {
     display: block;
