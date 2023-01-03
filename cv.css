@@ -112,7 +112,7 @@ h2 {
     align-items: flex-start;
     flex-grow: 0;
     width: 100%;
-    margin-bottom: auto;
+    margin-bottom:auto;
   }
   #sideNav .navbar-collapse .navbar-nav {
     flex-direction: column;
