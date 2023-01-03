@@ -39,16 +39,12 @@ h2 {
   font-size: 1.35rem;
 }
 
-.list-social-icons a {
-  color: #495057;
+.social-icons {
+  gap: 10px;
 }
 
-.list-social-icons a:hover {
-  color: #2471A3;
-}
-
-.list-social-icons a .fa-lg {
-  font-size: 1.75rem;
+.social-icons img {
+  width: 60px;
 }
 
 .list-icons {
