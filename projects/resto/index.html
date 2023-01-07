@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Restaurants Nearme Demo</title>
+    <meta charset="utf-8">
+</head>
+<body>
+
+<h1>Restaurants Nearby App</h1>
+<p> By Priyavarthini</p>
+<button  onclick="findR()">Find Restaurants Near me</button>
+<p>  </p>
+</body>
+<div id="map"></div>
+<script>
+
+    var map;
+    var infowindow;
+    var pos;
+
+    function find() {
+        console.log("finding");
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(show);
+        } else {
+            window.alert("Browser doesn't support Geolocation")
+        }
+        function show(position) {
+            pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+            };
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: pos,
+                zoom: 16,
+            });
+
+            var hmarker = new google.maps.Marker({
+                map: map,
+                icon: {
+                    url: 'https://vignette.wikia.nocookie.net/howtoprogram/images/9/9a/Home.png',
+                    anchor: new google.maps.Point(11, 11),
+                    scaledSize: new google.maps.Size(50, 50)
+                },
+                position: pos
+            });
+            infowindow = new google.maps.InfoWindow();
+            infowindow.setPosition(pos);
+            infowindow.setContent( '<div><strong>'+ "Your Location" +'</strong></br>');
+            infowindow.open(map);
+        }
+    }
+
+    function findR() {
+        console.log("finding R");
+        if (pos === undefined) {
+            window.alert("Couldn't get the current location, use default");
+            pos = {lat: 1.346648 , lng: 103.84991200}
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: pos,
+                zoom: 15
+            });
+        }
+
+        infowindow = new google.maps.InfoWindow();
+        var service = new google.maps.places.PlacesService(map);
+        service.nearbySearch({
+            location: pos,
+            radius: 500,
+            type: ['restaurant']
+        }, callback);
+
+        function callback(results, status) {
+            service = new google.maps.places.PlacesService(map);
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+                console.log(results);
+                for (var i = 0; i < 20; i++) {
+                    createMarker(results[i]);
+                }
+            } else {
+                console.log(results);
+                console.log(status);
+            }
+        }
+
+        function createMarker(place) {
+            var placeLoc = place.geometry.location;
+            var marker = new google.maps.Marker({
+                map: map,
+                position: placeLoc
+            });
+
+            google.maps.event.addListener(marker, 'click', function() {
+                infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
+                    place.vicinity+ '<br>');
+                infowindow.open(map, this);
+            });
+
+        }
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2DV9d4gqd2FHifGbxEngDWOkbLS71yZE&libraries=places&callback=find" async defer>
+</script>
+</html>
