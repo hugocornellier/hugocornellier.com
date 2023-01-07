@@ -19,14 +19,22 @@ app.listen(port, () =>
 	console.log(`Example app listening on port `+port)
 );
 
-const { MongoClient } = require('mongodb');
-const uri = "mongodb+srv://root:DoPgkVgBN6goWw3r@cluster0.g6od2xj.mongodb.net/?retryWrites=true&w=majority";
-MongoClient.connect(uri, function(err, db) {
-	let dbo = db.db("mydb");
+const mongodb = require("mongodb");
+const connectionURL = "mongodb+srv://root:DoPgkVgBN6goWw3r@cluster0.g6od2xj.mongodb.net/?retryWrites=true&w=majority";
+const dbName = "mydb"
+const MongoClient = mongodb.MongoClient;
+let db = null;
+
+MongoClient.connect(connectionURL,{
+	useNewUrlParser: true,
+	useUnifiedTopology: true
+},(err,connectedClient) => {
+	if(err) throw err;
+	db = connectedClient.db(dbName);
 	let entry = { ip: "100.100.100.1", city: "Fredericton", country: "Canada", date: date };
-	dbo.collection("user-views").insertOne(entry, function(err, res) {
+	db.collection("user-views").insertOne(entry, function(err, res) {
 		if (err) throw err;
 		console.log("1 document inserted");
-		db.close();
 	});
-});
+
+})
