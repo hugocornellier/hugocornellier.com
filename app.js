@@ -36,5 +36,4 @@ MongoClient.connect(connectionURL,{
 		if (err) throw err;
 		console.log("1 document inserted");
 	});
-
 })
