@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const mongodb = require("mongodb")
 const axios = require('axios')
+const request = require('request');
 const requestIp = require('request-ip')
 const MongoClient = mongodb.MongoClient
 const date = new Date()
@@ -20,6 +21,14 @@ app.set('trust proxy', 'loopback')
 app.get('/', async (req, res) => {
 	ip = requestIp.getClientIp(req)
 	insertViewToDb()
+	let url = "http://api.ipstack.com/${ip}?access_key=a2da89892582edff06d9bcba1fefe77e"
+	let propertiesObject = { field1:'test1', field2:'test2' };
+	request({url: url, qs: propertiesObject}, function(err, response, body) {
+		if(err) { console.log(err); return; }
+		console.log("Get response: " + response.statusCode)
+		console.log(body)
+	});
+
 	res.sendFile(__dirname + "/hugocornellier.html")
 })
 app.get('/projects/orc-rush-tower-defense', (req, res) => {
