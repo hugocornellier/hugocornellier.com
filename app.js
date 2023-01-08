@@ -41,21 +41,20 @@ function insertViewToDb(ip) {
 			if (err) throw err
 			if (result.length === 0) {
 				let url = "http://api.ipstack.com/" + ip + "?access_key=a2da89892582edff06d9bcba1fefe77e"
-				let parsed = null
 				request({url: url}, function(err, response, body) {
 					if (err) { console.log(err); return; }
-					parsed = JSON.parse(body)
-				})
-				let entry = {
-					ip: ip,
-					city: parsed.city,
-					province: parsed.region_name,
-					country: parsed.country_name,
-					date: new Date()
-				}
-				db.collection(collection).insertOne(entry, function(err, res) {
-					if (err) throw err
-					console.log("1 document inserted")
+					let parsed = JSON.parse(body)
+					let entry = {
+						ip: ip,
+						city: parsed.city,
+						province: parsed.region_name,
+						country: parsed.country_name,
+						date: new Date()
+					}
+					db.collection(collection).insertOne(entry, function(err, res) {
+						if (err) throw err
+						console.log("1 document inserted")
+					})
 				})
 			} else console.log("Not inserting view. This IP was seen within the last 30 minutes.")
 		})
