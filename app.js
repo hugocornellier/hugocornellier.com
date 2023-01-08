@@ -26,7 +26,6 @@ app.get('/', async (req, res) => {
 		if(err) { console.log(err); return; }
 		console.log("Get response: " + response.statusCode)
 		console.log(body)
-		parsed.country_name = undefined; parsed.region_name = undefined;
 		const parsed = JSON.parse(body)
 		console.log(parsed)
 		insertViewToDb(ip, parsed.city, parsed.region_name, parsed.country_name)
