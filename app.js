@@ -9,7 +9,6 @@ const date = new Date()
 
 // Local env port to 3000 & live env port to 5000
 let port = app.settings['views'].substring(0, 5) === "/User" ? 3000 : 5000
-let ip = null
 
 const sendAPIRequest = async (ipAddress) => {
 	const apiResponse = await axios.get(URL + "&ip_address=" + ipAddress);
@@ -19,8 +18,7 @@ const sendAPIRequest = async (ipAddress) => {
 app.use(express.static(__dirname))
 app.set('trust proxy', 'loopback')
 app.get('/', async (req, res) => {
-	ip = requestIp.getClientIp(req)
-	insertViewToDb()
+	let ip = requestIp.getClientIp(req)
 	let url = "http://api.ipstack.com/" + ip + "?access_key=a2da89892582edff06d9bcba1fefe77e"
 	console.log(url)
 	let propertiesObject = { field1:'test1', field2:'test2' };
@@ -30,6 +28,7 @@ app.get('/', async (req, res) => {
 		console.log(body)
 		const parsed = JSON.parse(body)
 		console.log(parsed)
+		insertViewToDb(ip, parsed.city, parsed.country)
 	});
 
 	res.sendFile(__dirname + "/hugocornellier.html")
@@ -44,7 +43,7 @@ app.listen(port, () =>
 	console.log(`Example app listening on port `+port)
 )
 
-function insertViewToDb() {
+function insertViewToDb(ip, city, country) {
 	const connectionURL = "mongodb+srv://root:DoPgkVgBN6goWw3r@cluster0.g6od2xj.mongodb.net/?retryWrites=true&w=majority";
 	const dbName = "mydb"
 	let db = null
