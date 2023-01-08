@@ -16,11 +16,10 @@ const sendAPIRequest = async (ipAddress) => {
 	return apiResponse.data;
 }
 
-app.use(express.static(__dirname));
+app.use(express.static(__dirname))
+app.set('trust proxy',true)
 app.get('/', async (req, res) => {
-	ip = req.headers['x-forwarded-for'] ||
-		 req.socket.remoteAddress ||
-		 null;
+	ip = req.ip
 	console.log(ip)
 	insertViewToDb()
 	console.log(ip)
