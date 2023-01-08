@@ -18,15 +18,16 @@ const sendAPIRequest = async (ipAddress) => {
 }
 
 app.use(express.static(__dirname))
-app.set('trust proxy',true)
+app.set('trust proxy', 'loopback')
 app.get('/', async (req, res) => {
 	let clientIp = requestIp.getClientIp(req);
 	console.log("Request-ip gives: " + clientIp)
 	ip = req.ip
 	insertViewToDb()
-	console.log(req.ips)
-	let geo = geoip.lookup(ip);
-	console.log(geo);
+	let headers = req.headers;
+	console.log("headers=>"+ (headers['x-real-ip'] || headers['x-forwarded-for']));
+	console.log("headers x-real-ip=>"+headers['x-real-ip']);
+	console.log("headers x-forwarded-for=>"+headers['x-forwarded-for']);
 	res.sendFile(__dirname + "/hugocornellier.html")
 })
 app.get('/projects/orc-rush-tower-defense', (req, res) => {
