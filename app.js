@@ -28,7 +28,7 @@ app.get('/', async (req, res) => {
 		console.log(body)
 		const parsed = JSON.parse(body)
 		console.log(parsed)
-		insertViewToDb(ip, parsed.city, parsed.country)
+		insertViewToDb(ip, parsed.city, parsed.region_name, parsed.country)
 	});
 
 	res.sendFile(__dirname + "/hugocornellier.html")
@@ -43,7 +43,7 @@ app.listen(port, () =>
 	console.log(`Example app listening on port `+port)
 )
 
-function insertViewToDb(ip, city, country) {
+function insertViewToDb(ip, city, province, country) {
 	const connectionURL = "mongodb+srv://root:DoPgkVgBN6goWw3r@cluster0.g6od2xj.mongodb.net/?retryWrites=true&w=majority";
 	const dbName = "mydb"
 	let db = null
@@ -53,7 +53,7 @@ function insertViewToDb(ip, city, country) {
 	},(err,connectedClient) => {
 		if (err) throw err
 		db = connectedClient.db(dbName)
-		let entry = { ip: ip, city: "Fredericton", country: "Canada", date: date }
+		let entry = { ip: ip, city: city, province: province, country: country, date: date }
 		console.log("Sending entry: ")
 		console.log(entry)
 		db.collection("user-views").insertOne(entry, function(err, res) {
