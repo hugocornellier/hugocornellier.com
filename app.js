@@ -2,11 +2,9 @@ const express = require('express')
 const app = express()
 const mongodb = require("mongodb")
 const axios = require('axios')
-const requestIp = require('request-ip');
+const requestIp = require('request-ip')
 const MongoClient = mongodb.MongoClient
 const date = new Date()
-const IP = require('ip')
-const geoip = require('geoip-lite')
 
 // Local env port to 3000 & live env port to 5000
 let port = app.settings['views'].substring(0, 5) === "/User" ? 3000 : 5000
@@ -20,15 +18,8 @@ const sendAPIRequest = async (ipAddress) => {
 app.use(express.static(__dirname))
 app.set('trust proxy', 'loopback')
 app.get('/', async (req, res) => {
-	let clientIp = requestIp.getClientIp(req);
-	console.log("Request-ip gives: " + clientIp)
-	ip = req.ip
+	ip = requestIp.getClientIp(req)
 	insertViewToDb()
-	let headers = req.headers;
-	console.log(req)
-	console.log("headers=>"+ (headers['x-real-ip'] || headers['x-forwarded-for']));
-	console.log("headers x-real-ip=>"+headers['x-real-ip']);
-	console.log("headers x-forwarded-for=>"+headers['x-forwarded-for']);
 	res.sendFile(__dirname + "/hugocornellier.html")
 })
 app.get('/projects/orc-rush-tower-defense', (req, res) => {
