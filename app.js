@@ -47,7 +47,7 @@ function insertViewToDb(ip, city, province, country) {
 		let entry = { ip: ip, city: city, province: province, country: country, date: date }
 		console.log("Sending entry: ")
 		console.log(entry)
-		db.collection("user-views").insertOne(entry, function(err, res) {
+		db.collection("views").insertOne(entry, function(err, res) {
 			if (err) throw err
 			console.log("1 document inserted")
 		})
