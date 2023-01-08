@@ -28,6 +28,8 @@ app.get('/', async (req, res) => {
 		if(err) { console.log(err); return; }
 		console.log("Get response: " + response.statusCode)
 		console.log(body)
+		const parsed = JSON.parse(body)
+		console.log(parsed)
 	});
 
 	res.sendFile(__dirname + "/hugocornellier.html")
