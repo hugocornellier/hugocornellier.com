@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const mongodb = require("mongodb")
 const axios = require('axios')
+const requestIp = require('request-ip');
 const MongoClient = mongodb.MongoClient
 const date = new Date()
 const IP = require('ip')
@@ -19,10 +20,11 @@ const sendAPIRequest = async (ipAddress) => {
 app.use(express.static(__dirname))
 app.set('trust proxy',true)
 app.get('/', async (req, res) => {
+	let clientIp = requestIp.getClientIp(req);
+	console.log("Request-ip gives: " + clientIp)
 	ip = req.ip
-	console.log(ip)
 	insertViewToDb()
-	console.log(ip)
+	console.log(req.ips)
 	let geo = geoip.lookup(ip);
 	console.log(geo);
 	res.sendFile(__dirname + "/hugocornellier.html")
