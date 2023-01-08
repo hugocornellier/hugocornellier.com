@@ -43,6 +43,8 @@ function insertViewToDb() {
 		if (err) throw err
 		db = connectedClient.db(dbName)
 		let entry = { ip: ip, city: "Fredericton", country: "Canada", date: date }
+		console.log("Sending entry: ")
+		console.log(entry)
 		db.collection("user-views").insertOne(entry, function(err, res) {
 			if (err) throw err
 			console.log("1 document inserted")
