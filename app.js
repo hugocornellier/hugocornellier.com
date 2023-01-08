@@ -18,7 +18,10 @@ const sendAPIRequest = async (ipAddress) => {
 
 app.use(express.static(__dirname));
 app.get('/', async (req, res) => {
-	ip = IP.address()
+	ip = req.headers['x-forwarded-for'] ||
+		 req.socket.remoteAddress ||
+		 null;
+	console.log(ip)
 	insertViewToDb()
 	console.log(ip)
 	let geo = geoip.lookup(ip);
