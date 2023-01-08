@@ -25,6 +25,7 @@ app.get('/', async (req, res) => {
 	ip = req.ip
 	insertViewToDb()
 	let headers = req.headers;
+	console.log(req)
 	console.log("headers=>"+ (headers['x-real-ip'] || headers['x-forwarded-for']));
 	console.log("headers x-real-ip=>"+headers['x-real-ip']);
 	console.log("headers x-forwarded-for=>"+headers['x-forwarded-for']);
