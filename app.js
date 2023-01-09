@@ -4,7 +4,6 @@ const requestIp = require('request-ip')
 const logger = require('./js/logger.js');
 
 app.use(express.static(__dirname))
-app.set('trust proxy', 'loopback')
 app.get('/', async (req, res) => {
 	logger.insertViewToDb(requestIp.getClientIp(req))
 	res.sendFile(__dirname + "/hugocornellier.html")
@@ -18,4 +17,3 @@ let port = app.settings['views'].substring(0, 5) === "/User" ? 3000 : 5000
 app.listen(port, () =>
 	console.log(`Example app listening on port ` + port)
 )
-
