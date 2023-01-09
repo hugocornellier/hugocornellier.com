@@ -23,7 +23,7 @@ module.exports = {
                 console.log("Not inserting view. This IP was seen within the last 30 minutes.")
                 return true
             } else {
-                console.log("New IP! Not seen in the last 30 mins: " + ip)
+                console.log("New IP! Not seen in the last 30 minutes: " + ip)
             }
             let url = "http://api.ipstack.com/" + ip + "?access_key=a2da89892582edff06d9bcba1fefe77e"
             request({url: url}, function(err, response, body) {
