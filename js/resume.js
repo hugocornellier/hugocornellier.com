@@ -3,6 +3,7 @@ for (let p of document.getElementsByClassName('project-icon')) {
         openInNewTab(p.getAttribute('data-url'));
     });
 }
+
 function openInNewTab(url) {
     window.open(url, '_blank').focus();
 }
