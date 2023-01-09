@@ -49,17 +49,17 @@ h2 {
   font-size: 14px;
 }
 
+.fa-github {
+  font-size: 30px;
+}
+
 .social-icons, .project-icons {
   gap: 10px;
 }
 
-.social-icons img {
-  width: 60px;
-}
-
 .project-icons div {
-  width: 40px;
-  height: 40px;
+  width: 43px;
+  height: 43px;
 }
 
 .project-icon {
@@ -72,9 +72,17 @@ h2 {
   background: var(--main);
 }
 
-.project-icon img {
-  width: 26px;
-  height: 26px;
+.social-icon {
+  width: 60px;
+  height: 60px;
+}
+
+.social-icons .fa-linkedin-in {
+  font-size: 27px;
+}
+
+.social-icons .fa-github {
+  font-size: 45px;
 }
 
 .list-icons {
