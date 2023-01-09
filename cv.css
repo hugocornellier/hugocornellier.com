@@ -1,3 +1,7 @@
+:root {
+  --main: #DC582A;
+}
+
 body {
   font-family: 'Open Sans', serif;
   padding-top: 54px;
@@ -65,7 +69,7 @@ h2 {
 }
 
 .project-icon:hover {
-  background: #2471A3;
+  background: var(--main);
 }
 
 .project-icon img {
@@ -78,7 +82,7 @@ h2 {
 }
 
 .list-icons .list-inline-item i:hover {
-  color: #2471A3;
+  color: var(--main);
 }
 
 #sideNav .navbar-nav .nav-item .nav-link {
@@ -153,15 +157,15 @@ section.resume-section .resume-item .resume-date {
 }
 
 .bg-primary {
-  background-color: #2471A3!important;
+  background-color: var(--main) !important;
 }
 
 .text-primary {
-  color: #2471A3 !important;
+  color: var(--main) !important;
 }
 
 a {
-  color: #2471A3;
+  color: var(--main);
 }
 
 a:hover, a:focus, a:active {
