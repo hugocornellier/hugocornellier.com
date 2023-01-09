@@ -12,7 +12,7 @@ module.exports = {
         useNewUrlParser: true,
         useUnifiedTopology: true
     },(err, client) => {
-        if (err) { console.log(err); return; }
+        if (err) { console.log("failure connecting to client"); console.log(err); return; }
         let views = client.db(dbName).collection("views")
         views.find({
             ip: ip,
@@ -22,6 +22,8 @@ module.exports = {
             if (result.length > 0) {
                 console.log("Not inserting view. This IP was seen within the last 30 minutes.")
                 return true
+            } else {
+                console.log("New IP! Not seen in the last 30 mins: " + ip)
             }
             let url = "http://api.ipstack.com/" + ip + "?access_key=a2da89892582edff06d9bcba1fefe77e"
             request({url: url}, function(err, response, body) {
