@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="PROJECT" libraries="{bootstrap, font-awesome, marvinj-1.0, socket.io}" />
+    <file url="PROJECT" libraries="{all, bootstrap, font-awesome, marvinj-1.0, socket.io}" />
     <includedPredefinedLibrary name="Node.js Core" />
   </component>
 </project>

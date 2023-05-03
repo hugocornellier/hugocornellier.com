@@ -12,5 +12,6 @@
     <orderEntry type="library" name="socket.io" level="application" />
     <orderEntry type="library" name="bootstrap" level="application" />
     <orderEntry type="library" name="marvinj-1.0" level="application" />
+    <orderEntry type="library" name="all" level="application" />
   </component>
 </module>
