@@ -3,7 +3,6 @@ const app = express()
 const http = require('http')
 const { Server } = require('socket.io')
 const server = http.createServer(app)
-const requestIp = require('request-ip')
 const io = new Server(server)
 const { MongoClient } = require("mongodb");
 let pw = encodeURIComponent("+z:~hu2z._pC98u")
@@ -13,6 +12,9 @@ const client = new MongoClient(uri)
 app.use(express.static(__dirname))
 app.get('/', async (req, res) => {
 	res.sendFile(__dirname + "/client/hugocornellier.html")
+})
+app.get('/dealer_portal', async (req, res) => {
+	res.sendFile(__dirname + "/projects/dealer_portal/index.html")
 })
 app.get('/projects/*', (req, res) => {
 	res.sendFile(__dirname + "/client/projects/*/index.html")
@@ -33,8 +35,19 @@ io.on('connection', (socket) => {
 	socket.on('giveaway_entry', (data) => {
 		console.log('data: ' + data);
 		run(data[0], data[1], socket).catch(console.dir);
-	});
-});
+	})
+	socket.on('conn', () => {
+		fetch("https://checkip.amazonaws.com/").then(res => res.text()).then(data => {
+			request('http://ip-api.io/api/json/' + data)
+				.then(response => {
+					response = JSON.parse(response)
+					console.log(response)
+					socket.emit('result', response['country_name'], response['region_code'], response['region_name'])
+				})
+				.catch(err => console.log(err))
+		})
+	})
+})
 
 // Local env port to 3000 & live env port to 5000
 let port = app.settings['views'].substring(0, 5) === "/User" ? 3000 : 5000
