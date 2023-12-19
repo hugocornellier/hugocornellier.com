@@ -1,17 +1,53 @@
 const express = require('express')
 const app = express()
-const http = require('http');
-const server = http.createServer(app);
-const requestIp = require('request-ip')
-const logger = require('./client/js/logger.js')
+const http = require('http')
+const { Server } = require('socket.io')
+const server = http.createServer(app)
+const request = require('request-promise')
+const io = new Server(server)
+const { MongoClient } = require("mongodb");
+let pw = encodeURIComponent("+z:~hu2z._pC98u")
+const uri = `mongodb+srv://hugocornellier:${pw}@giveawayentries.165wcgp.mongodb.net/?retryWrites=true&w=majority`
+const client = new MongoClient(uri)
 
 app.use(express.static(__dirname))
 app.get('/', async (req, res) => {
-	logger.insertViewToDb(requestIp.getClientIp(req))
 	res.sendFile(__dirname + "/client/hugocornellier.html")
+})
+app.get('/dealer_portal', async (req, res) => {
+	res.sendFile(__dirname + "/projects/dealer_portal/index.html")
 })
 app.get('/projects/*', (req, res) => {
 	res.sendFile(__dirname + "/client/projects/*/index.html")
+})
+
+async function run(name, email, socket) {
+	const database = client.db("insertDB")
+	const giveaway_entries = database.collection("giveaway_entries")
+	const doc = {
+		email: email,
+		name: name,
+	}
+	const result = await giveaway_entries.insertOne(doc)
+	socket.emit('entry_added', result)
+}
+
+io.on('connection', (socket) => {
+	socket.on('giveaway_entry', (data) => {
+		console.log('data: ' + data);
+		run(data[0], data[1], socket).catch(console.dir);
+	})
+	socket.on('conn', () => {
+		fetch("https://checkip.amazonaws.com/").then(res => res.text()).then(data => {
+			request('http://ip-api.io/api/json/' + data)
+				.then(response => {
+					response = JSON.parse(response)
+					console.log(response)
+					socket.emit('result', response['country_name'], response['region_code'], response['region_name'])
+				})
+				.catch(err => console.log(err))
+		})
+	})
 })
 
 // Local env port to 3000 & live env port to 5000
