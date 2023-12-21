@@ -3,6 +3,10 @@ const app = express()
 const http = require('http')
 const { Server } = require('socket.io')
 const request = require('request-promise')
+const cors = require('cors');
+app.use(cors({
+	origin: ['https://www.thecabindepot.com', 'https://www.thecabindepot.ca']
+}));
 const server = http.createServer(app)
 const io = new Server(server)
 const { MongoClient } = require("mongodb");
@@ -16,6 +20,14 @@ app.get('/', async (req, res) => {
 })
 app.get('/dealer_portal', async (req, res) => {
 	res.sendFile(__dirname + "/projects/dealer_portal/index.html")
+})
+app.get('/api', async (req, res) => {
+	json = {
+		msg: 'Hello World',
+		ip: req.socket.remoteAddress
+	}
+	console.log(json)
+	res.json(json)
 })
 app.get('/projects/*', (req, res) => {
 	res.sendFile(__dirname + "/client/projects/*/index.html")
