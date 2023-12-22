@@ -22,6 +22,7 @@ app.get('/dealer_portal', async (req, res) => {
 	res.sendFile(__dirname + "/projects/dealer_portal/index.html")
 })
 app.get('/api', async (req, res) => {
+	console.log(req.socket.remoteAddress)
 	fetch("https://checkip.amazonaws.com/").then(res => res.text()).then(data => {
 		request('http://ip-api.io/api/json/' + data)
 		.then(response => {
