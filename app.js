@@ -22,8 +22,16 @@ app.get('/dealer_portal', async (req, res) => {
 	res.sendFile(__dirname + "/projects/dealer_portal/index.html")
 })
 app.get('/api', async (req, res) => {
-	console.log(req.originalUrl)
-	res.json({i: "j"})
+	let userIP =  req.originalUrl.split("ip=")[1]
+	request('http://ip-api.io/api/json/' + userIP)
+	.then(response => {
+		response = JSON.parse(response)
+		console.log(response)
+		res.json({
+			c_name: response['country_name']
+		})
+	})
+	.catch(err => console.log(err))
 })
 app.get('/projects/*', (req, res) => {
 	res.sendFile(__dirname + "/client/projects/*/index.html")
