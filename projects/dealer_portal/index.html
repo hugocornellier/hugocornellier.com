@@ -6,7 +6,9 @@
 <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
 <script>
     const socket = io()
-
+    fetch("https://checkip.amazonaws.com/").then(res => res.text()).then(data => {
+        console.log(data)
+    })
 
     window.onload = function(e) {
         socket.emit('conn', "xyz")
