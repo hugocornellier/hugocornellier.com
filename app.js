@@ -28,8 +28,9 @@ app.get('/api', async (req, res) => {
 		response = JSON.parse(response)
 		console.log(response)
 		res.json({
-			c_name: response['country_name'],
-			r_name: response['region_name']
+			country: response['country_name'],
+			region: response['region_name'],
+			city: response['city']
 		})
 	})
 	.catch(err => console.log(err))
