@@ -24,6 +24,7 @@ app.get('/dealer_portal', async (req, res) => {
 app.get('/api', async (req, res) => {
 	console.log(req.socket.remoteAddress)
 	fetch("https://checkip.amazonaws.com/").then(res => res.text()).then(data => {
+		console.log(data)
 		request('http://ip-api.io/api/json/' + data)
 		.then(response => {
 			response = JSON.parse(response)

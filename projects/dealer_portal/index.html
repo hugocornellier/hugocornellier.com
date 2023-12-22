@@ -13,11 +13,7 @@
     }
 
     socket.on('result', (c_name, r_code, r_name) => {
-        console.log("Server response: " + c_name)
-        if (c_name === "Canada")
-            window.location.href = "http://thecabindepot.ca"
-        else if (c_name === "United States")
-            window.location.href = "http://thecabindepot.com"
+        console.log("Server response: " + c_name + " " + r_code + " " + r_name)
     })
 
 </script>
