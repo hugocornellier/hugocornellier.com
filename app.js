@@ -22,21 +22,8 @@ app.get('/dealer_portal', async (req, res) => {
 	res.sendFile(__dirname + "/projects/dealer_portal/index.html")
 })
 app.get('/api', async (req, res) => {
-	console.log(req.socket.remoteAddress)
-	fetch("https://checkip.amazonaws.com/").then(res => res.text()).then(data => {
-		console.log(data)
-		request('http://ip-api.io/api/json/' + data)
-		.then(response => {
-			response = JSON.parse(response)
-			json = {
-				c_name: response['country_name'],
-				r_code: response['region_code'],
-				r_name: response['region_name']
-			}
-			res.json(json)
-		})
-		.catch(err => console.log(err))
-	})
+	console.log(req.originalUrl)
+	res.json({i: "j"})
 })
 app.get('/projects/*', (req, res) => {
 	res.sendFile(__dirname + "/client/projects/*/index.html")
