@@ -29,7 +29,7 @@ app.get('/api', async (req, res) => {
 		console.log(response)
 		res.json({
 			country: response['country_name'],
-			region: response['region_name'],
+			province: response['region_name'],
 			city: response['city']
 		})
 	})
