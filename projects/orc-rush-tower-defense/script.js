@@ -17,31 +17,59 @@ let enemyCount = 0
 let enemies = []
 let towers = []
 let gameHasStarted = false
+const socket = io()
+socket.on('entry_added', (data) => {
+    console.log("Server response: " + data)
+})
 createColumnsAndRows()
 createHomeBase()
 createNewEnemy()
 
-towerCheck = setInterval(() => {
-    if (towers.length > 0 && gameHasStarted) {
-        towers.forEach(t => {
-            const enemy = document.getElementById('enemy_' + (enemyCount-1));
-            if (enemy) {
+const gameIsOver = (enemy) => {
+    return enemy && enemy.style.top === "772px" && enemy.style.left === "772px"
+}
+
+let refresh = setInterval(() => {
+    if (gameHasStarted) {
+        const enemy = document.getElementById('enemy_' + (enemyCount-1));
+        if (gameIsOver(enemy)) {
+            let score = parseInt(document.getElementById('score').innerText);
+            let game_over_html =
+                "<div style='display: flex; justify-content: center; align-items: center; flex-direction: column'>" +
+                    "<span class='title' style='font-size: 18px; color: #c46161; margin-bottom: 25px'>GAME OVER</span>" +
+                    "<span class='title' style='font-size: 14px;  margin-bottom: 15px'>Enter your name to join the <b>high scores</b>!</span>" +
+                    "<input id='name'>" +
+                    "<button id='submit'>Join leaderboard</button>" +
+                "</div>"
+            document.getElementById('display').style.display = "none"
+            const gameboard = document.getElementById('gameboard')
+            gameboard.style.display = "flex"
+            gameboard.style.justifyContent = "center"
+            gameboard.style.alignItems = "center"
+            gameboard.innerHTML = game_over_html
+            document.getElementById('submit').addEventListener("click", function() {
+                socket.emit("join_leaderboard", [score, document.getElementById("name").value])
+            });
+            clearInterval(refresh)
+        }
+        if (towers.length > 0 && enemy) {
+            towers.forEach(t => {
                 let distanceToEnemy = getDistance(tileToPixel(t.col), tileToPixel(t.row), parseInt(enemy.style.left), parseInt(enemy.style.top))
                 if (distanceToEnemy <= (BLOCK_SIZE * 2)) {
                     reduceHealth(t, enemy)
                 }
-            }
-        })
+            })
+        }
     }
 }, MOVEMENT_SPEED);
 
-function reduceHealth(attacker, enemy) {
+let reduceHealth = (attacker, enemy) => {
     const health = enemy.getElementsByClassName("health")[0];
     let rawID = enemy.id.substring(enemy.id.indexOf('_') + 1);
     let e = enemies[rawID]
     e.health -= attacker.damage
-    console.log(e.health)
-    if (e.health < 0) e.health = 0
+    if (e.health < 0)
+        e.health = 0
     let newHealth = ((e.health / e.origHealth) * HEALTH_BAR_SIZE)
     health.style.width = newHealth + "px"
     if (health.style.width === "0px") {
@@ -106,9 +134,9 @@ function findPath(obj, dest_x, dest_y) {
             let i = 0;
             let interv = setInterval(() => {
                 let p = path[i++]
-                if (!p || !obj)
+                if (!p || !obj) {
                     clearInterval(interv)
-                else {
+                } else {
                     let x = parseInt(document.getElementById(p).getAttribute("data-row"))
                     let y = parseInt(document.getElementById(p).getAttribute("data-column"))
                     if (x === last_x + 1 && y === last_y)
@@ -250,17 +278,13 @@ function getFreeAdjacentBlocks(row, col, visited, lastVisited, ladded) {
 function blockIsFree(orig_x, orig_y, new_x, new_y, visited) {
     // The block we're checking to see if it's free
     const newBlock = document.getElementById(`block_${new_x}_${new_y}`)
-
     if (new_y < 0 || new_x < 0 || new_x >= ROWS || new_y >= COLS)
         return false
     if (alreadyVisited({row: new_x, col: new_y}, visited))
         return false
     if (isBlocked(newBlock))
         return false
-    if (attemptingToWrapAroundObject(orig_x, orig_y, new_x, new_y))
-        return false
-
-    return true
+    return !attemptingToWrapAroundObject(orig_x, orig_y, new_x, new_y);
 }
 
 function attemptingToWrapAroundObject(orig_x, orig_y, new_x, new_y) {

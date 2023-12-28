@@ -11,7 +11,7 @@ const server = http.createServer(app)
 const io = new Server(server)
 const { MongoClient } = require("mongodb");
 let pw = encodeURIComponent("+z:~hu2z._pC98u")
-const uri = `mongodb+srv://hugocornellier:${pw}@giveawayentries.165wcgp.mongodb.net/?retryWrites=true&w=majority`
+const uri = `mongodb+srv://hugocornellier:${pw}leaderboard.qrubtzl.mongodb.net/?retryWrites=true&w=majority`
 const client = new MongoClient(uri)
 
 app.use(express.static(__dirname))
@@ -35,8 +35,8 @@ app.get('/api', async (req, res) => {
 	})
 	.catch(err => console.log(err))
 })
-app.get('/projects/*', (req, res) => {
-	res.sendFile(__dirname + "/client/projects/*/index.html")
+app.get('/projects/*/', (req, res) => {
+	res.sendFile(__dirname + "/projects/*/index.html")
 })
 
 async function run(name, email, socket) {
@@ -51,6 +51,19 @@ async function run(name, email, socket) {
 }
 
 io.on('connection', (socket) => {
+	socket.on('join_leaderboard', async (data) => {
+		let score = data[0]
+		let name = data[1]
+		console.log(`new high score. ${score} by ${name}`)
+		const database = client.db("insertDB")
+		const giveaway_entries = database.collection("leaderboard")
+		const doc = {
+			score: score,
+			name: name,
+		}
+		const result = await giveaway_entries.insertOne(doc)
+		socket.emit('entry_added', result)
+	})
 	socket.on('giveaway_entry', (data) => {
 		console.log('data: ' + data);
 		run(data[0], data[1], socket).catch(console.dir);
