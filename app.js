@@ -14,6 +14,7 @@ const uri = `mongodb+srv://hugocornellier:${pw}@leaderboard.qrubtzl.mongodb.net/
 const client = new MongoClient(uri)
 
 async function insertLeaderboardListing(score, name) {
+	console.log("attempting to insert listing")
 	const database = client.db("LDB")
 	const ldb = database.collection("leaderboard")
 	const result = await ldb.insertOne({
@@ -36,7 +37,7 @@ io.on('connection', (socket) => {
 		let score = data[0]
 		let name = data[1]
 		console.log(`new high score. ${score} by ${name}`)
-		insertLeaderboardListing().catch(console.dir);
+		insertLeaderboardListing(score, name).catch(console.dir);
 		socket.emit('entry_added', "success")
 	})
 })
