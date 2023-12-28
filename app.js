@@ -8,10 +8,26 @@ app.use(cors({
 }));
 const server = http.createServer(app)
 const io = new Server(server)
-//const { MongoClient } = require("mongodb");
-//let pw = encodeURIComponent("+z:~hu2z._pC98u")
-//const uri = `mongodb+srv://hugocornellier:${pw}leaderboard.qrubtzl.mongodb.net/?retryWrites=true&w=majority`
-//const client = new MongoClient(uri)
+const { MongoClient, ServerApiVersion } = require('mongodb')
+const pw = encodeURIComponent("+z:~hu2z._pC98u")
+const uri = `mongodb+srv://hugocornellier:${pw}@leaderboard.qrubtzl.mongodb.net/?retryWrites=true&w=majority`
+const client = new MongoClient(uri, {
+	serverApi: {
+		version: ServerApiVersion.v1,
+		strict: true,
+		deprecationErrors: true,
+	}
+});
+
+async function insertLeaderboardListing() {
+	try {
+		await client.connect();
+		await client.db("admin").command({ ping: 1 });
+		console.log("Pinged your deployment. You successfully connected to MongoDB!");
+	} finally {
+		await client.close();
+	}
+}
 
 app.use(express.static(__dirname))
 app.get('/', async (req, res) => {
@@ -26,6 +42,7 @@ io.on('connection', (socket) => {
 		let score = data[0]
 		let name = data[1]
 		console.log(`new high score. ${score} by ${name}`)
+		insertLeaderboardListing().catch(console.dir);
 		socket.emit('entry_added', "success")
 	})
 })
