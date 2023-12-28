@@ -28,8 +28,8 @@ app.use(express.static(__dirname))
 app.get('/', async (req, res) => {
 	res.sendFile(__dirname + "/client/hugocornellier.html")
 })
-app.get('/projects/*/', (req, res) => {
-	res.sendFile(__dirname + "/projects/*/index.html")
+app.get('/projects/orc-rush-tower-defense/', (req, res) => {
+	res.sendFile(__dirname + "/projects/orc-rush-tower-defense/index.html")
 })
 
 io.on('connection', (socket) => {
