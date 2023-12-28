@@ -19,7 +19,10 @@ let towers = []
 let gameHasStarted = false
 const socket = io()
 socket.on('entry_added', (data) => {
-    console.log("Server response: " + data)
+    if (data.acknowledged) {
+        console.log("Leaderboard listing added successfully!")
+        document.getElementById("lb_submit_wrap").innerHTML = "Success! Refresh to see the new leaderboard."
+    }
 })
 socket.on('lb_data', (data) => {
     data.forEach(d => {
@@ -49,7 +52,7 @@ let refresh = setInterval(() => {
                     "<span class='title' style='font-size: 18px; color: #c46161; margin-bottom: 25px'>GAME OVER</span>" +
                     "<span class='title' style='font-size: 14px;  margin-bottom: 15px'>Enter your name to join the <b>high scores</b>!</span>" +
                     "<input id='name'>" +
-                    "<button id='submit'>Join leaderboard</button>" +
+                    "<div id='lb_submit_wrap'><button id='submit'>Join leaderboard</button></div>" +
                 "</div>"
             document.getElementById('display').style.display = "none"
             const gameboard = document.getElementById('gameboard')
