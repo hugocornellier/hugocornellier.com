@@ -26,7 +26,7 @@ io.on('connection', (socket) => {
 		let score = data[0]
 		let name = data[1]
 		console.log(`new high score. ${score} by ${name}`)
-		socket.emit('entry_added', result)
+		socket.emit('entry_added', "success")
 	})
 })
 
