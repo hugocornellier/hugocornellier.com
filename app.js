@@ -24,6 +24,22 @@ async function insertLeaderboardListing(score, name, socket) {
 	socket.emit('entry_added', result)
 }
 
+async function getLeaderboardData(socket) {
+	console.log("attempting to get lb data")
+	const database = client.db("LDB")
+	const ldb = database.collection("leaderboard")
+	const result = await ldb.find().sort( { score: -1 } ).toArray()
+	let results = []
+	result.forEach(doc => {
+		results.push({
+			"name": doc.name,
+			"score": doc.score
+		})
+	});
+	console.log(results)
+	socket.emit('lb_data', results)
+}
+
 app.use(express.static(__dirname))
 app.get('/', async (req, res) => {
 	res.sendFile(__dirname + "/client/hugocornellier.html")
@@ -38,6 +54,9 @@ io.on('connection', (socket) => {
 		let name = data[1]
 		console.log(`new high score. ${score} by ${name}`)
 		insertLeaderboardListing(score, name, socket).catch(console.dir);
+	})
+	socket.on('get_lb_data', async () => {
+		getLeaderboardData(socket).catch(console.dir);
 	})
 })
 

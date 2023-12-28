@@ -21,9 +21,19 @@ const socket = io()
 socket.on('entry_added', (data) => {
     console.log("Server response: " + data)
 })
+socket.on('lb_data', (data) => {
+    data.forEach(d => {
+        let d_html = '<div class="lb_results"><div class="lb_name">' + d.name + '</div><div class="lb_score">' + d.score + '</div></div>'
+        document.getElementById("lb_main").insertAdjacentHTML("beforeend", d_html)
+    });
+})
 createColumnsAndRows()
 createHomeBase()
 createNewEnemy()
+
+window.addEventListener("load", (event) => {
+    socket.emit("get_lb_data")
+});
 
 const gameIsOver = (enemy) => {
     return enemy && enemy.style.top === "772px" && enemy.style.left === "772px"
@@ -381,6 +391,7 @@ function createColumnsAndRows() {
     document.getElementById('placeWall').addEventListener('click', function handleClick(e) {
         placeWall();
     });
+    display.insertAdjacentHTML("beforeend", "<button id='viewLeaderboard' onClick='viewLeaderboard()'>View Leaderboard</button>")
     display.insertAdjacentHTML("beforeend", "<button id='startGame' onClick='startGame(); this.remove()'>Start Game</button>")
     document.addEventListener('keydown', (event)=> {
         if (event.key === 't' || event.key === 'T')
@@ -395,6 +406,24 @@ function createColumnsAndRows() {
 function startGame() {
     gameHasStarted = true
     findPath(enemies[0], 19, 19);
+}
+
+function viewLeaderboard() {
+    document.getElementById('sidebarOverlay').style.visibility = "visible";
+    document.getElementById('sidebarOverlay').style.opacity = "0.8";
+    document.getElementById('lb_wrap').style.display = "flex";
+    document.addEventListener('keydown', (key)=> {
+        if (key.key === "Escape") {
+            console.log("Escape pressed.");
+            exitLeaderboard();
+        }
+    });
+}
+
+function exitLeaderboard() {
+    document.getElementById('sidebarOverlay').style.opacity = "0";
+    document.getElementById('sidebarOverlay').style.visibility = "hidden";
+    document.getElementById('lb_wrap').style.display = "none";
 }
 
 function placeWall() {
