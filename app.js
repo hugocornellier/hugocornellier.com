@@ -2,7 +2,6 @@ const express = require('express')
 const app = express()
 const http = require('http')
 const { Server } = require('socket.io')
-const request = require('request-promise')
 const cors = require('cors');
 app.use(cors({
 	origin: ['https://www.thecabindepot.com', 'https://www.thecabindepot.ca']
@@ -27,13 +26,6 @@ io.on('connection', (socket) => {
 		let score = data[0]
 		let name = data[1]
 		console.log(`new high score. ${score} by ${name}`)
-		const database = client.db("insertDB")
-		const giveaway_entries = database.collection("leaderboard")
-		const doc = {
-			score: score,
-			name: name,
-		}
-		const result = await giveaway_entries.insertOne(doc)
 		socket.emit('entry_added', result)
 	})
 })
