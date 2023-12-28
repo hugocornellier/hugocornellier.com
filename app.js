@@ -13,7 +13,7 @@ let pw = encodeURIComponent("+z:~hu2z._pC98u")
 const uri = `mongodb+srv://hugocornellier:${pw}@leaderboard.qrubtzl.mongodb.net/?retryWrites=true&w=majority`
 const client = new MongoClient(uri)
 
-async function insertLeaderboardListing(score, name) {
+async function insertLeaderboardListing(score, name, socket) {
 	console.log("attempting to insert listing")
 	const database = client.db("LDB")
 	const ldb = database.collection("leaderboard")
@@ -37,8 +37,7 @@ io.on('connection', (socket) => {
 		let score = data[0]
 		let name = data[1]
 		console.log(`new high score. ${score} by ${name}`)
-		insertLeaderboardListing(score, name).catch(console.dir);
-		socket.emit('entry_added', "success")
+		insertLeaderboardListing(score, name, socket).catch(console.dir);
 	})
 })
 
