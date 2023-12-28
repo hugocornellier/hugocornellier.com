@@ -8,25 +8,19 @@ app.use(cors({
 }));
 const server = http.createServer(app)
 const io = new Server(server)
-const { MongoClient, ServerApiVersion } = require('mongodb')
-const pw = encodeURIComponent("+z:~hu2z._pC98u")
+const { MongoClient } = require("mongodb");
+let pw = encodeURIComponent("+z:~hu2z._pC98u")
 const uri = `mongodb+srv://hugocornellier:${pw}@leaderboard.qrubtzl.mongodb.net/?retryWrites=true&w=majority`
-const client = new MongoClient(uri, {
-	serverApi: {
-		version: ServerApiVersion.v1,
-		strict: true,
-		deprecationErrors: true,
-	}
-});
+const client = new MongoClient(uri)
 
-async function insertLeaderboardListing() {
-	try {
-		await client.connect();
-		await client.db("LDB").command({ ping: 1 });
-		console.log("Pinged your deployment. You successfully connected to MongoDB!");
-	} finally {
-		await client.close();
-	}
+async function insertLeaderboardListing(score, name) {
+	const database = client.db("LDB")
+	const ldb = database.collection("leaderboard")
+	const result = await ldb.insertOne({
+		score: score,
+		name: name,
+	})
+	socket.emit('entry_added', result)
 }
 
 app.use(express.static(__dirname))
