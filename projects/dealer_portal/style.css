@@ -81,15 +81,19 @@ body {
     justify-content: center;
     align-items: center;
 }
-#home_wrapper {
+.screen_center {
     text-align: center;
-    width: 300px;
-    height: 300px;
     position: absolute;
     left: 50%;
     top: 50%;
+}
+#home_wrapper {
+    width: 300px;
+    height: 300px;
     margin-left: -150px;
     margin-top: -150px;
+    background: #e6e6e6;
+    padding: 40px;
 }
 #welcome_username {
     color: darkblue;
