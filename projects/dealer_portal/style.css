@@ -12,15 +12,13 @@
     margin: 0 auto 100px;
     padding: 45px;
     text-align: center;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
-.login-form-wrapper input {
+input {
     font-family: "Roboto", sans-serif;
     outline: 0;
     background: #f2f2f2;
     width: 100%;
     border: 0;
-    margin: 0 0 15px;
     padding: 15px;
     box-sizing: border-box;
     font-size: 14px;
@@ -29,7 +27,6 @@ button {
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
     outline: 0;
-    background: #2055b2;
     width: 100%;
     border: 0;
     padding: 15px;
@@ -39,8 +36,27 @@ button {
     transition: all 0.3 ease;
     cursor: pointer;
 }
-button:hover,button:active,button:focus {
+input, button {
+    max-width: 250px;
+    margin-bottom: 15px;
+}
+.grey_button {
+    background: #62666b;
+}
+.grey_button:hover,.grey_button:focus {
+    background: #51545b;
+}
+.blue_button {
+    background: #2055b2;
+}
+.blue_button:hover,.blue_button:focus {
     background: #0c3172;
+}
+.green_button {
+    background: #4CAF50;
+}
+.green_button:hover,.green_button:focus {
+    background: #2d8d30;
 }
 
 .login-form-wrapper .message a {
@@ -65,13 +81,22 @@ button:hover,button:active,button:focus {
     color: #000000;
     text-decoration: none;
 }
-body {
+.raise_opacity_on_hover {
+    opacity: 0.7
+}
+.raise_opacity_on_hover:hover {
+    opacity: 1.0
+}
+.blue {
     background: #5262b7; /* fallback for old browsers */
     background: rgb(82, 98, 183);
     background: linear-gradient(90deg, rgb(82, 98, 183) 0%, rgb(66, 83, 171) 50%);
     font-family: "Roboto", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+.flex_dir_col {
+    flex-direction: column;
 }
 .dflex, .dflex_center {
     display: flex;
@@ -88,13 +113,20 @@ body {
     top: 50%;
 }
 #home_wrapper {
-    width: 300px;
-    height: 300px;
-    margin-left: -150px;
-    margin-top: -150px;
-    background: #e6e6e6;
+    width: 400px;
+    height: 400px;
+    margin-left: -240px;
+    margin-top: -240px;
+    background: #FFFFFF;
     padding: 40px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 #welcome_username {
     color: darkblue;
+}
+#create_user {
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

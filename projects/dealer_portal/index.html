@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <link href="/projects/dealer_portal/style.css" rel="stylesheet" />
 </head>
-<body>
+<body class="blue">
     <div id="login-page" style="display: none">
         <div class="login-form-wrapper">
             <form class="login-form">
                 <h2>TCD Dealer Portal</h2>
                 <input id="username_input" type="text" placeholder="username"/>
                 <input id="pw_input" type="password" placeholder="password"/>
-                <button type="button" id="login_btn">login</button>
+                <button type="button" id="login_btn" class="blue_button">login</button>
             </form>
         </div>
     </div>
@@ -19,22 +19,22 @@
 <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
 <script src="/projects/dealer_portal/utilities.js"></script>
 <script>
+
     // Constants
     const socket = io()
     const login_btn = document.getElementById('login_btn')
 
     // Socket actions
     socket.on('cookies_validated', () => redirectLoggedInUser())
+    socket.on('cookies_validation_failure', () => deleteCookiesAndRedirect())
     socket.on('login_return', (data) => {
         createCookie("session_id", data[1])
         createCookie("username", data[2])
         if (data[0].length > 0) {
-            login_btn.innerText = "Success!"
-            login_btn.style.background = 'green'
+            setBtnToSuccess(login_btn)
             redirectLoggedInUser()
         } else {
-            login_btn.innerText = "Failure"
-            login_btn.style.background = 'red'
+            setBtnToFailure(login_btn)
         }
     })
 
@@ -44,12 +44,12 @@
 
     // Define login action
     login_btn.onclick = () => {
-        login_btn.innerText = "loading..."
-        login_btn.style.background = 'black'
-        socket.emit('login_ping', [
+        setBtnToLoading(login_btn)
+        socket.emit('login', [
             document.getElementById('username_input').value,
             document.getElementById('pw_input').value
         ])
     }
+
 </script>
 </html>

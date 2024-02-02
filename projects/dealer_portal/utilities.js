@@ -22,12 +22,18 @@ const getCookieData = (name, cookies) => {
     return (name in cookies) ? cookies[name] : null
 }
 
+const createCookie = (name, value) => {
+    document.cookie = name + "=" + value + ";"
+}
+
 const deleteCookie = (name) => {
     document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
 }
 
-const createCookie = (name, value) => {
-    document.cookie = name + "=" + value + ";"
+const deleteCookiesAndRedirect = () => {
+    deleteCookie('username')
+    deleteCookie('session_id')
+    redirectLoggedOutUser()
 }
 
 // Check existing cookies
@@ -36,8 +42,28 @@ const checkForLoggedInUser = () => {
     let username_cookie = getCookieData('username', cookies),
         session_id_cookie = getCookieData('session_id', cookies)
     if (username_cookie !== null && session_id_cookie !== null) {
-        socket.emit('validate_login_cookie', [username_cookie, session_id_cookie])
+        socket.emit('validate', [username_cookie, session_id_cookie])
     } else {
         document.getElementById('login-page').style.display = "Block"
     }
+}
+
+const setBtnToLoading = (btn) => {
+    btn.innerText = "Loading..."
+    btn.style.background = 'black'
+}
+
+const setBtnToSuccess = (btn) => {
+    btn.innerText = "Success!"
+    btn.style.background = 'green'
+}
+
+const setBtnToFailure = (btn) => {
+    btn.innerText = "Failure"
+    btn.style.background = 'red'
+}
+
+const setBtnToDefault = (btn) => {
+    btn.innerText = btn.getAttribute('data-value')
+    btn.style.background = ''
 }

@@ -8,15 +8,24 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="all" level="application" />
     <orderEntry type="library" name="marvinj-1.0" level="application" />
+    <orderEntry type="library" name="font-awesome" level="application" />
+    <orderEntry type="library" name="all" level="application" />
     <orderEntry type="library" name="socket.io" level="application" />
     <orderEntry type="library" name="bootstrap" level="application" />
     <orderEntry type="library" name="font-awesome" level="application" />
     <orderEntry type="library" name="jquery" level="application" />
-    <orderEntry type="library" name="socket.io" level="application" />
-    <orderEntry type="library" name="jquery" level="application" />
-    <orderEntry type="library" name="bootstrap" level="application" />
+    <orderEntry type="library" name="remixicon" level="application" />
+    <orderEntry type="library" name="css-pro-layout" level="application" />
+    <orderEntry type="library" name="twitter-bootstrap" level="application" />
+    <orderEntry type="library" name="select2" level="application" />
     <orderEntry type="library" name="all" level="application" />
+    <orderEntry type="library" name="tempusdominus-bootstrap-4" level="application" />
+    <orderEntry type="library" name="@popperjs" level="application" />
+    <orderEntry type="library" name="jquery" level="application" />
+    <orderEntry type="library" name="popper.js" level="application" />
+    <orderEntry type="library" name="bootstrap" level="application" />
+    <orderEntry type="library" name="moment.js" level="application" />
+    <orderEntry type="library" name="socket.io" level="application" />
   </component>
 </module>

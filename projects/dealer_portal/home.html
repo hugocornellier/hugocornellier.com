@@ -6,36 +6,107 @@
     <link href="/projects/dealer_portal/style.css" rel="stylesheet" />
 </head>
 <body>
-    <div id="home_wrapper" class="dflex_center screen_center">
-        <h2 id="welcome" style="display: none">
-            Hi, welcome !
-        </h2>
-        <button type="button" id="logout_btn" class="cpointer" style="display: none">
-            Logout
-        </button>
+    <div id="home_wrapper" class="dflex_center screen_center" style="display: none">
+        <div id="home_main">
+            <h2 id="welcome">
+                Welcome!
+            </h2>
+            <button type="button" id="see_content_btn" class="cpointer blue_button">
+                View Content
+            </button>
+            <button type="button" id="logout_btn" class="cpointer grey_button">
+                Logout
+            </button>
+            <h2>
+                Admin Options
+            </h2>
+            <button type="button" id="create_user_button" class="cpointer green_button">
+                Create User
+            </button>
+        </div>
+        <div id="create_user" class="flex_dir_col" style="display: none">
+            <div class="back_to_home cpointer" style="position: relative; bottom: 45px; right: 200px; width: 50px">
+                ←
+            </div>
+            <h2>Create New User</h2>
+            <input id="create_username_input" placeholder="username"/>
+            <input id="create_pw_input" placeholder="password"/>
+            <input id="create_type_input" placeholder="type (must be admin or user)"/>
+            <button type="button" id="initiate_user_creation" class="cpointer blue_button" data-value="Create">
+                Create
+            </button>
+            <div id='create_user_message' style="height: 20px"></div>
+        </div>
     </div>
 </body>
 <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
 <script src="/projects/dealer_portal/utilities.js"></script>
 <script>
-    const username_cookie = getCookieData('username', getExistingCookies())
-    if (username_cookie === null) {
+
+    // Constants
+    const socket = io()
+    const cookies = getExistingCookies()
+    const username_cookie = getCookieData('username', cookies)
+    const initiate_user_creation_btn = document.getElementById('initiate_user_creation')
+    const create_user_msg_div = document.getElementById('create_user_message')
+
+    // Socket actions
+    socket.on('cookies_validation_failure', () => deleteCookiesAndRedirect())
+    socket.on('cookies_validated', (res) => {
+        document.getElementById('welcome').innerHTML = `Welcome, <span id="welcome_username">${username_cookie}</span>!`
+        document.getElementById('home_wrapper').style.display = 'flex'
+    })
+    socket.on('create_user_return', (res) => {
+        if (res[1])
+            create_user_msg_div.innerText = "User Created Successfully!"
+        else
+            create_user_msg_div.innerText = res[2]
+        setBtnToDefault(initiate_user_creation_btn)
+    })
+
+    // Check if user is signed in
+    // If not, redirect to login page
+    if (username_cookie === null || getCookieData('session_id', cookies) === null)
         redirectLoggedOutUser()
-    } else {
-        const welcome_el = document.getElementById('welcome')
-        welcome_el.innerHTML = `Hi, <span id="welcome_username">${username_cookie}</span>! Welcome.`
-        welcome_el.style.display = 'block'
-        document.getElementById('logout_btn').style.display = 'block'
-    }
+    else checkForLoggedInUser()
 
     // Logout action
     const logout_btn = document.getElementById('logout_btn')
     logout_btn.onclick = () => {
-        logout_btn.innerText = "Logging Out..."
-        logout_btn.style.background = 'black'
-        deleteCookie('username')
-        deleteCookie('session_id')
-        redirectLoggedOutUser()
+        setBtnToLoading(logout_btn)
+        deleteCookiesAndRedirect()
     }
+
+    // Create User action
+    document.getElementById('create_user_button').onclick = () => {
+        document.getElementById('home_main').style.display = 'none'
+        document.getElementById('create_user').style.display = 'flex'
+    }
+
+    // Initiate User creation by admin
+    initiate_user_creation_btn.onclick = () => {
+        setBtnToLoading(initiate_user_creation_btn)
+        const data = [
+            document.getElementById('create_username_input').value,
+            document.getElementById('create_pw_input').value,
+            document.getElementById('create_type_input').value
+        ]
+        if (!(data[0] === null || data[1] === null || data[0].length < 1 || data[1].length < 1 || !(data[2] === 'user' || data[2] === 'admin'))) {
+            socket.emit('create_user', data)
+        } else {
+            setBtnToDefault(initiate_user_creation_btn)
+            create_user_msg_div.innerText = "Error. Are the fields filled out? Is the type 'user' or 'admin'?"
+        }
+    }
+
+    // Back to home
+    const back_home_els = document.getElementsByClassName('back_to_home')
+    Array.prototype.forEach.call(back_home_els, function (el) {
+        el.onclick = () => {
+            document.getElementById('create_user').style.display = 'none'
+            document.getElementById('home_main').style.display = 'block'
+        }
+    })
+
 </script>
 </html>

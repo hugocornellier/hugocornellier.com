@@ -61,7 +61,7 @@ let refresh = setInterval(() => {
             gameboard.style.alignItems = "center"
             gameboard.innerHTML = game_over_html
             document.getElementById('submit').addEventListener("click", function() {
-                socket.emit("join_leaderboard", [score, document.getElementById("name").value])
+                socket.emit("join_lb", [score, document.getElementById("name").value])
             });
             clearInterval(refresh)
         }
