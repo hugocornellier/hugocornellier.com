@@ -63,7 +63,7 @@
                                 <span class="menu-title">Create User</span>
                             </a>
                         </li>
-                        <li class="menu-header" style="padding-top: 20px; display: none">
+                        <li class="menu-header" style="padding-top: 20px;">
                             <span> Account </span>
                         </li>
                         <li id="logout_link" class="menu-item" style="display: none">
@@ -188,6 +188,9 @@
         document.getElementById('document_container').setAttribute('style',"display: flex !important")
         document.getElementById('create_user_container').setAttribute('style',"display: none !important")
     }
+
+    // Logout action
+    document.getElementById('logout_link').onclick = () => deleteCookiesAndRedirect()
 
     // Initiate User creation by admin
     initiate_user_creation_btn.onclick = () => {
