@@ -1,5 +1,5 @@
 const redirectLoggedInUser = () => {
-    window.location.replace('/dealer_portal/home')
+    window.location.replace('/dealer_portal/hometest')
 }
 
 const redirectLoggedOutUser = () => {
