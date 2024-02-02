@@ -25,7 +25,7 @@
     box-sizing: border-box;
     font-size: 14px;
 }
-.login-form-wrapper button {
+button {
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
     outline: 0;
@@ -39,7 +39,7 @@
     transition: all 0.3 ease;
     cursor: pointer;
 }
-.login-form-wrapper button:hover,.login-form-wrapper button:active,.login-form-wrapper button:focus {
+button:hover,button:active,button:focus {
     background: #0c3172;
 }
 
