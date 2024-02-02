@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TCD Dealer Portal - Home</title>
+    <link href="/projects/dealer_portal/style.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="home_wrapper" class="dflex_center">
+        <h2 id="welcome" style="display: none">
+            Hi, welcome !
+        </h2>
+        <div type="button" id="logout_btn" class="cpointer">
+            Logout
+        </div>
+    </div>
+</body>
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+<script src="/projects/dealer_portal/utilities.js"></script>
+<script>
+    const username_cookie = getCookieData('username', getExistingCookies())
+    if (username_cookie === null) {
+        redirectLoggedOutUser()
+    } else {
+        const welcome_el = document.getElementById('welcome')
+        welcome_el.innerHTML = `Hi, <span id="welcome_username">${username_cookie}</span>! Welcome.`
+        welcome_el.style.display = 'block'
+        document.getElementById('logout_btn').style.display = 'block'
+    }
+
+    // Logout action
+    const logout_btn = document.getElementById('logout_btn')
+    logout_btn.onclick = () => {
+        logout_btn.innerText = "Logging Out..."
+        logout_btn.style.background = 'black'
+        deleteCookie('username')
+        deleteCookie('session_id')
+        redirectLoggedOutUser()
+    }
+</script>
+</html>
