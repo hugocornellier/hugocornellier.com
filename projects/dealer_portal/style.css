@@ -94,9 +94,3 @@ body {
 #welcome_username {
     color: darkblue;
 }
-#logout_btn {
-    display: none;
-    width: 150px;
-    background: white;
-    padding: 10px
-}
