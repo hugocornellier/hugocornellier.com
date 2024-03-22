@@ -7,12 +7,14 @@ const About = () => {
         <section className="resume-section p-3 p-lg-5 d-flex d-column" id="about">
             <div className="my-auto">
                 <h1 className="mb-0">Hugo <span className="text-primary">Cornellier</span></h1>
-                <h3>Junior Software Developer</h3>
+                <h3>Full-Stack Developer</h3>
                 <div className="subheading mb-5">Fredericton, Canada · <a href="mailto:hugo.cornellier@gmail.com">hugo.cornellier@gmail.com</a></div>
-                <p className="mb-5">
-                    <p>My name is Hugo Cornellier, and I am a passionate and driven Junior Software Developer.</p>
-                    <p>I have a B. Sc. in Computer Science from UNB, graduating in the First Division & on the Dean’s List with a GPA of 3.7.</p>
-                    <p>I am currently working as a Web Developer at Off-Grid Distribution.</p>
+                <p className="about-me mb-5 max-w-0">
+                    <p>My name is Hugo Cornellier, and I am a passionate and driven developer. I am currently
+                        working as a Full-Stack Developer at Off-Grid Distribution.</p>
+                    <p>I have a B. Sc. in Computer Science from UNB, graduating in August 2023 in the First Division.
+                        I'm proud of my academic record: I received a final GPA of 3.7, and earned a spot on the Dean's
+                        List in 2023.</p>
                 </p>
                 <a href="/client/data/pdf/cv.pdf" target="_blank" rel="noopener noreferrer">View Resume as PDF</a>
                 <br />
