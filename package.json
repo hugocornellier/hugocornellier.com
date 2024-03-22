@@ -1,21 +1,41 @@
 {
+  "name": "MarioKartRuns",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js",
+    "server": "node backend/server.js",
+    "build": "npm install --legacy-peer-deps && npm install --legacy-peer-deps --prefix frontend && npm run build --prefix frontend"
+  },
+  "keywords": [
+    "mkrecords",
+    "MarioKartRuns"
+  ],
+  "author": "Hugo Cornellier",
+  "license": "ISC",
   "dependencies": {
-    "async": "^3.2.4",
-    "axios": "^1.2.2",
-    "bcrypt": "^5.1.1",
+    "@fortawesome/fontawesome-svg-core": "^6.5.1",
+    "@fortawesome/free-brands-svg-icons": "^6.5.1",
+    "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@types/react-helmet": "^6.1.11",
+    "bcryptjs": "^2.4.3",
+    "bootstrap": "^5.3.3",
     "cors": "^2.8.5",
-    "express": "^4.18.2",
-    "geoip-lite": "^1.4.6",
-    "get-pixels": "^3.3.3",
-    "ip": "^2.0.0",
-    "js-sha512": "^0.9.0",
-    "moment": "^2.29.4",
-    "mongodb": "6.3",
-    "node-geocoder": "^4.2.0",
-    "public-ip": "^6.0.1",
-    "request": "^2.88.2",
-    "request-ip": "^3.3.0",
-    "request-promise": "^4.2.6",
-    "socket.io": "^4.7.2"
+    "cross-fetch": "^4.0.0",
+    "dotenv": "^9.0.2",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "node-html-parser": "^6.1.12",
+    "react-helmet": "^6.1.0",
+    "react-router-dom": "^6.22.3",
+    "socket.io": "^4.1.2",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
   }
 }
