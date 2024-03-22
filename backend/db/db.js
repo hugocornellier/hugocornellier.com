@@ -5,30 +5,8 @@ module.exports = {
     createTable: function createTable(tableName) {
         db_conn.exec(`
             CREATE TABLE ${tableName} (
-                date VARCHAR(50) NOT NULL,
-                player VARCHAR(50) NOT NULL,
-                days VARCHAR(50) NOT NULL,
-                lap1 VARCHAR(50) NOT NULL,
-                lap2 VARCHAR(50) NOT NULL,
-                lap3 VARCHAR(50) NOT NULL,
-                lap4 VARCHAR(50),
-                lap5 VARCHAR(50),
-                lap6 VARCHAR(50),
-                lap7 VARCHAR(50),
-                coins VARCHAR(50) NOT NULL,
-                shrooms VARCHAR(50) NOT NULL,
-                character VARCHAR(250) NOT NULL,
-                kart VARCHAR(250) NOT NULL,
-                tires VARCHAR(250) NOT NULL,
-                glider VARCHAR(250) NOT NULL,
-                time VARCHAR(250) NOT NULL,
-                video_url VARCHAR(250) NOT NULL,
-                controller VARCHAR(250) NOT NULL,
-                nation VARCHAR(250) NOT NULL,
-                race VARCHAR(250) NOT NULL, 
-                race_id INTEGER NOT NULL,
-                cup VARCHAR(50),
-                cc VARCHAR(50)
+                date VARCHAR(50),
+                ip VARCHAR(50),
             )
         `)
     },

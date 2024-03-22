@@ -24,6 +24,11 @@ io.on("connection", (socket) => {
     socket.on("get_records", async (table, cc) => {
         io.emit("get_records_ret", await db.getRecords(table, cc));
     })
+    socket.on("track_view_data", async (table, cc) => {
+        console.log("Tracking view data")
+        console.log(socket.conn)
+        console.log(socket.conn.remoteAddress)
+    })
 })
 
 let home_path = app.settings['views'].substring(0, 5)
@@ -35,18 +40,6 @@ server.listen(
     async () => {
         return new Promise(async (resolve) => {
             console.log(`Server running!`)
-            // await db.deleteAllByRaceId(41, 'mk8')
-            // await scraper.getAndInsertRecords(
-            //    "https://mkwrs.com/mk8/display.php?track=GCN+Baby+Park",
-            //    'mk8',
-            //    41
-            // )
-            // await scraper.scrapeAllRacesByGame(
-            //     'mk8dx',
-            //     false,
-            //     1
-            // )
-            //console.log(await scraper.getRaceURLs('mk8dx'))
             resolve()
         })
     }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import Skills from "./component/Skills";
 import Experience from "./component/Experience";
 import Nav from "./component/Nav";
@@ -7,10 +7,18 @@ import Awards from "./component/Awards";
 import Projects from "./component/Projects";
 import About from "./component/About";
 import Header from "./component/Header";
+import {Socket} from "socket.io-client";
+import {SocketHelper} from "./context/SocketHelper";
 
 export default function App() {
-    const [activeSidebar, setActiveSidebar] = useState(true);
-    const onToggleSidebar = () => setActiveSidebar(!activeSidebar)
+    const [socket, setSocket] = useState<Socket>();
+    useEffect((): void => setSocket(SocketHelper.init()), []);
+    useEffect(() => {
+        if (!socket) {
+            return;
+        }
+        socket.emit("track_view_data");
+    }, [socket]);
 
     return (
         <>
