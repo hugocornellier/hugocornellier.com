@@ -27,11 +27,18 @@ io.on("connection", (socket) => {
         console.log("Tracking view data...")
         const rawHeaders = socket.conn.request.rawHeaders
         let requestIP = null
+        let origin = null
         for (let i= 0; i < rawHeaders.length; i = i + 2) {
             console.log(rawHeaders[i] + ": " + rawHeaders[i + 1])
-            requestIP = (rawHeaders[i] === 'X-Real-IP') ? rawHeaders[i + 1] : null
+            if (rawHeaders[i] === 'Origin') {
+                origin = rawHeaders[i + 1]
+            }
+            if (rawHeaders[i] === 'X-Real-IP') {
+                requestIP = rawHeaders[i + 1]
+            }
         }
         console.log(requestIP)
+        console.log(origin)
     })
 })
 
