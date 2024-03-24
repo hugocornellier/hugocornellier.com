@@ -11,7 +11,9 @@ View it live at: [https://hugocornellier.com](https://hugocornellier.com)
 - In separate terminal:
   - ```npm start --prefix ./frontend```
 
-### Production:
-- At root: ```npm run build```
-  - Low memory build: ```node --max_old_space_size=750 `which npm` run build```
-- ```forever stopall && forever start ./backend/server.js```
+### Production Build:
+- Basic build: ```npm run build```
+- Low memory builds:
+  - 1GB system:```node --max_old_space_size=750 `which npm` run build```
+  - 2GB system:```node --max_old_space_size=1500 `which npm` run build```
+- Start server: ```forever stopall && forever start ./backend/server.js```
