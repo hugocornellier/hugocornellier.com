@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 interface NavItemProps {
     title: string;
@@ -23,10 +23,20 @@ const Nav: React.FC = () => {
         { title: "Projects", href: "#projects" }
     ];
 
+    function handleClick() {
+        console.log("Lol")
+        setShow(!show)
+    }
+
+    const [show, setShow] = useState<boolean>(false);
+
+
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
             <a className="navbar-brand js-scroll-trigger">
-                <span className="d-block d-lg-none">Hugo Cornellier</span>
+                <span className="d-block d-lg-none">
+                    Hugo Cornellier
+                </span>
                 <span className="d-none d-lg-block">
                     <img
                         src={require('../img/headshot.png')}
@@ -38,9 +48,9 @@ const Nav: React.FC = () => {
             <button className="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
+                <span onClick={handleClick} className="navbar-toggler-icon"></span>
             </button>
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <div className={"collapse navbar-collapse " + (show ? 'show' : '')} id="navbarSupportedContent">
                 <ul className="navbar-nav">
                     {navItems.map((item, index) => (
                         <NavItem key={index} title={item.title} href={item.href} />

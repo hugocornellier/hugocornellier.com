@@ -1,22 +1,15 @@
-import {useEffect, useState} from "react";
-import Skills from "./component/Skills";
-import Experience from "./component/Experience";
-import Nav from "./component/Nav";
-import Education from "./component/Education";
-import Awards from "./component/Awards";
-import Projects from "./component/Projects";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import About from "./component/About";
+import Awards from "./component/Awards";
+import Education from "./component/Education";
+import Experience from "./component/Experience";
 import Header from "./component/Header";
-import {Socket} from "socket.io-client";
-import {SocketHelper} from "./context/SocketHelper";
-import {
-    createBrowserRouter,
-    RouterProvider,
-    useParams
-} from "react-router-dom"
+import Nav from "./component/Nav";
+import Projects from "./component/Projects";
+import Skills from "./component/Skills";
 import Views from "./component/Views";
 
-export default function App() {
+const App: React.FC = () => {
     const router = createBrowserRouter([
         {
             path: "/",
@@ -33,8 +26,7 @@ export default function App() {
                         <Projects />
                     </div>
                 </>
-            ),
-
+            )
         },
         {
             path: "/test",
@@ -42,13 +34,15 @@ export default function App() {
                 <>
                     <Views />
                 </>
-            ),
+            )
         }
-    ])
+    ]);
 
     return (
         <>
             <RouterProvider router={router} />
         </>
     );
-}
+};
+
+export default App;
