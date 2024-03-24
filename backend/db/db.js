@@ -2,11 +2,17 @@ const db_conn = require("./db_conn")
 
 module.exports = {
 
-    createTable: function createTable(tableName) {
+    createTable: function createTable() {
+        console.log("Here")
         db_conn.exec(`
-            CREATE TABLE ${tableName} (
-                date VARCHAR(50),
+            CREATE TABLE views (
+                date VARCHAR(150),
                 ip VARCHAR(50),
+                country VARCHAR(150),
+                region VARCHAR(150),
+                timezone VARCHAR(150),
+                city VARCHAR(150),
+                userAgent VARCHAR(150)
             )
         `)
     },
@@ -19,30 +25,37 @@ module.exports = {
         }
     },
 
-    insertEntry: async function insertEntry(row, table) {
-        return new Promise(async (resolve, reject) => {
-            const existingEntry = await this.getEntry(row, table);
-            if (existingEntry.length === 0) {
-                const columns = ['date', 'player', 'days', 'lap1', 'lap2', 'lap3', 'coins', 'shrooms', 'character',
-                    'kart', 'tires', 'glider', 'time', 'video_url', 'controller', 'nation', 'race', 'race_id', 'cc', 'cup'];
-                const babyParkColumns = (row.race !== "GCN Baby Park") ? ['lap4', 'lap5', 'lap6', 'lap7'] : [];
-                const allColumns = [...columns, ...babyParkColumns];
-                const insertQuery = `
-                    INSERT INTO ${table} (${allColumns.join(', ')}) 
-                    VALUES (${Array(allColumns.length).fill('?').join(', ')})
-                `;
-                const insertValues = allColumns.map(col => row[col]);
-                db_conn.run(insertQuery, insertValues, (err) => {
+    checkIfTableExists: async function checkIfTableExists(tableName) {
+        return new Promise((resolve, reject) => {
+            db_conn.all(
+                `SELECT name FROM sqlite_master WHERE type='table' AND name='${tableName}';`,
+                (err, rows) => {
                     if (err) {
                         reject(err);
-                    } else {
-                        console.log(`Inserted a row.`);
-                        resolve();
                     }
-                });
-            } else {
-                reject("Row already exists.");
-            }
+                    resolve((rows.length > 0));
+                }
+            )
+        })
+    },
+
+    insertEntry: async function insertEntry(row, table) {
+        return new Promise(async (resolve, reject) => {
+            const columns = ['date', 'ip', 'country', 'region', 'timezone', 'city', 'userAgent'];
+            const insertQuery = `
+                    INSERT INTO ${table} (${columns.join(', ')}) 
+                    VALUES (${Array(columns.length).fill('?').join(', ')})
+                `;
+            const insertValues = columns.map(col => row[col]);
+            console.log("Inserting...")
+            db_conn.run(insertQuery, insertValues, (err) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    console.log(`Inserted a row.`);
+                    resolve();
+                }
+            });
         })
     },
 
@@ -76,20 +89,6 @@ module.exports = {
                         reject(err);
                     }
                     resolve(rows);
-                }
-            )
-        })
-    },
-
-    checkIfTableExists: async function checkIfTableExists(tableName) {
-        return new Promise((resolve, reject) => {
-            db_conn.all(
-                `SELECT name FROM sqlite_master WHERE type='table' AND name='${tableName}';`,
-                (err, rows) => {
-                    if (err) {
-                        reject(err);
-                    }
-                    resolve((rows.length > 0));
                 }
             )
         })
@@ -148,26 +147,17 @@ module.exports = {
         })
     },
 
-    getRecords: async function getRecords(table, cc) {
+    getRecords: async function getRecords(table) {
         return new Promise((resolve, reject) => {
             db_conn.all(
                 `SELECT * 
-                FROM ${table} 
-                WHERE cc = '${cc}'
-                ORDER BY race_id, time`,
+                FROM ${table}
+                ORDER BY date DESC`,
                 [], (err, rows) => {
                     if (err) {
                         reject(err)
                     } else {
-                        const tracksSeen = new Set();
-                        const individualRecords = [];
-                        for (const record of rows) {
-                            if (!tracksSeen.has(record.race)) {
-                                tracksSeen.add(record.race);
-                                individualRecords.push(record);
-                            }
-                        }
-                        resolve(individualRecords)
+                        resolve(rows)
                     }
                 }
             )

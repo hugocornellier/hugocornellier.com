@@ -1,6 +1,7 @@
 const http = require("http")
 const express = require("express")
 const socketIO = require("socket.io")
+const geoip = require('geoip-lite');
 const app = express()
 const path = require('path')
 const server = http.createServer(app)
@@ -14,32 +15,44 @@ app.get("*", (req, res) => {
 
 io.on("connection", (socket) => {
     console.log("Socket.io connection made successfully.");
-    socket.on("get_race_data", async (race, game, cc) => {
-        io.emit("get_race_data_ret", await db.getAllEntriesByRace(race, game, cc));
+    socket.on("get_records", async () => {
+        io.emit("get_records_ret", await db.getRecords('views'));
     })
-    socket.on("get_player_data", async (player, game) => {
-        io.emit("get_player_data_ret", await db.getAllEntriesByPlayer(decodeURI(player), game), await db.getRecords(game));
-    })
-    socket.on("get_records", async (table, cc) => {
-        io.emit("get_records_ret", await db.getRecords(table, cc));
-    })
-    socket.on("track_view_data", async (table, cc) => {
-        console.log("Tracking view data...")
-        const rawHeaders = socket.conn.request.rawHeaders
-        let requestIP = null
-        let origin = null
-        for (let i= 0; i < rawHeaders.length; i = i + 2) {
-            console.log(rawHeaders[i] + ": " + rawHeaders[i + 1])
-            if (rawHeaders[i] === 'Origin') {
-                origin = rawHeaders[i + 1]
-            }
-            if (rawHeaders[i] === 'X-Real-IP') {
-                requestIP = rawHeaders[i + 1]
+    socket.on("track_view_data", async () => {
+        const headers = socket.conn.request.rawHeaders;
+        let requestIP = null;
+        let userAgent = null;
+
+        for (let i = 0; i < headers.length; i += 2) {
+            if (headers[i] === 'X-Real-IP') {
+                requestIP = headers[i + 1];
+            } else if (headers[i] === 'User-Agent') {
+                userAgent = headers[i + 1];
             }
         }
-        console.log(requestIP)
-        console.log(origin)
-    })
+
+        requestIP ??= "173.34.38.168";
+        userAgent ??= "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:124.0) Gecko/20100101 Firefox/124.0";
+
+        const geo = geoip.lookup(requestIP);
+
+        const row = {
+            'date': String(new Date()),
+            'ip': requestIP,
+            'country': geo.country,
+            'region': geo.region,
+            'timezone': geo.timezone,
+            'city': geo.city,
+            'userAgent': userAgent
+        };
+
+        if (!(await db.checkIfTableExists('views'))) {
+            db.createTable();
+        }
+
+        db.insertEntry(row, 'views');
+    });
+
 })
 
 let home_path = app.settings['views'].substring(0, 5)
