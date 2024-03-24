@@ -42,33 +42,30 @@ const ProjectItem: React.FC<ProjectItemProps> = ({ project }) => {
 const Projects: React.FC = () => {
     const projectData: Project[] = [
         {
-            title: "Orc Rush Tower Defense",
+            title: "MarioKartRuns",
             type: "Web Application",
-            skills: "HTML, CSS, JS",
-            githubLink: "https://github.com/hugocornellier/orc-rush-tower-defense",
+            skills: "React, TypeScript, CSS, Tailwind, HTML5, SQL",
+            githubLink: "https://github.com/hugocornellier/mariokartruns",
             description: [
-                "Tower defense application developed as a team-based Agile project",
-                "Application written in vanilla JS, with the UI provided through HTML/CSS"
+                "A web app that displays and archives Mario Kart world records.",
             ]
         },
         {
-            title: "UNB Live Poker (2-5 Players)",
+            title: "hugocornellier.com",
             type: "Web Application",
-            skills: "Node.js, HTML, CSS, JS",
-            githubLink: "https://github.com/hugocornellier/unb-poker",
+            skills: "React, TypeScript, CSS, Tailwind, HTML5, SQL",
+            githubLink: "https://github.com/hugocornellier/hugocornellier.com",
             description: [
-                "Online Texas Holdem game with HTTPS & HTTP functionality",
-                "Server written in Node.js. UI is provided through HTML/CSS and JS. Developed as a team-based Agile project"
+                "Personal portfolio and resume. "
             ]
         },
         {
             title: "FAT32 Disk Image Browser",
-            type: "Utility Program",
+            type: "Utility Tool",
             skills: "C",
             githubLink: "https://github.com/hugocornellier/fat32-reader",
             description: [
-                "Wrote a program that performs operations to FAT32 disk images: read, browse, extract and write",
-                "Program written in C"
+                "A FAT32 disk image browser: capable of reading, browsing, extracting and writing"
             ]
         }
     ];

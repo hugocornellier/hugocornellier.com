@@ -33,7 +33,9 @@ const Experience: React.FC = () => {
             company: "Off-Grid Distribution",
             date: "Apr 2023 - Present",
             responsibilities: [
-                ""
+                "Use React, TypeScript to create responsive user interfaces",
+                "Integrate front-end components with server-side logic",
+                "Maximize performance of web applications"
             ]
         },
         {
@@ -41,18 +43,17 @@ const Experience: React.FC = () => {
             company: "Bulletproof",
             date: "Sep 2022 - Jan 2023",
             responsibilities: [
-                "Design, develop, and debug responsive web applications.",
-                "Utilize React, Node.JS, NoSQL, TypeScript and other technologies.",
-                "Engage in code reviews, design discussions and testing."
+                "Design, develop, and debug responsive web applications",
+                "Contributed to reducing ticket closing time by 80% with automation",
+                "Utilize React, TypeScript, NoSQL, Python and other technologies"
             ]
         },
         {
             title: "Math & Calculus Tutor",
-            company: "John Abbott College",
-            date: "Sept 2012 - June 2016",
+            company: "Independent",
+            date: "Sept 2014 - June 2018",
             responsibilities: [
-                "Mentoring High School and College students on topics related to Math.",
-                "Topics include Algebra, Calculus, and more."
+                "Teaching High School and College students on topics related to Math, including Algebra, Calculus and more."
             ]
         }
     ];
