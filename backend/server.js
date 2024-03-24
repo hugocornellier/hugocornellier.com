@@ -24,9 +24,14 @@ io.on("connection", (socket) => {
         io.emit("get_records_ret", await db.getRecords(table, cc));
     })
     socket.on("track_view_data", async (table, cc) => {
-        console.log("Tracking view data")
-        console.log(socket.conn)
-        console.log(socket.conn.remoteAddress)
+        console.log("Tracking view data...")
+        const rawHeaders = socket.conn.request.rawHeaders
+        let requestIP = null
+        for (let i= 0; i < rawHeaders.length; i = i + 2) {
+            console.log(rawHeaders[i] + ": " + rawHeaders[i + 1])
+            requestIP = (rawHeaders[i] === 'X-Real-IP') ? rawHeaders[i + 1] : null
+        }
+        console.log(requestIP)
     })
 })
 
