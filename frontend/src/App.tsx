@@ -9,29 +9,46 @@ import About from "./component/About";
 import Header from "./component/Header";
 import {Socket} from "socket.io-client";
 import {SocketHelper} from "./context/SocketHelper";
+import {
+    createBrowserRouter,
+    RouterProvider,
+    useParams
+} from "react-router-dom"
+import Views from "./component/Views";
 
 export default function App() {
-    const [socket, setSocket] = useState<Socket>();
-    useEffect((): void => setSocket(SocketHelper.init()), []);
-    useEffect(() => {
-        if (!socket) {
-            return;
+    const router = createBrowserRouter([
+        {
+            path: "/",
+            element: (
+                <>
+                    <Header />
+                    <Nav />
+                    <div className="container-fluid p-0">
+                        <About />
+                        <Education />
+                        <Experience />
+                        <Skills />
+                        <Awards />
+                        <Projects />
+                    </div>
+                </>
+            ),
+
+        },
+        {
+            path: "/test",
+            element: (
+                <>
+                    <Views />
+                </>
+            ),
         }
-        socket.emit("track_view_data");
-    }, [socket]);
+    ])
 
     return (
         <>
-            <Header />
-            <Nav />
-            <div className="container-fluid p-0">
-                <About />
-                <Education />
-                <Experience />
-                <Skills />
-                <Awards />
-                <Projects />
-            </div>
+            <RouterProvider router={router} />
         </>
     );
 }
