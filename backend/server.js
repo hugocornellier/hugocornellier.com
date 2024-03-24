@@ -6,7 +6,6 @@ const path = require('path')
 const server = http.createServer(app)
 const io = socketIO(server)
 const db = require("./db/db")
-const scraper = require("./scrape/scrape_tools")
 
 app.use(express.static(path.join(__dirname, "../frontend/build")))
 app.get("*", (req, res) => {
