@@ -25,7 +25,7 @@ const Nav: React.FC = () => {
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
-            <a className="navbar-brand js-scroll-trigger" href="#page-top">
+            <a className="navbar-brand js-scroll-trigger">
                 <span className="d-block d-lg-none">Hugo Cornellier</span>
                 <span className="d-none d-lg-block">
                     <img

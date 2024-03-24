@@ -29,22 +29,21 @@ const ExperienceItem: React.FC<Responsibility> = ({ title, company, date, respon
 const Experience: React.FC = () => {
     const experienceData: Responsibility[] = [
         {
-            title: "Junior Software Developer",
+            title: "Full Stack Developer",
+            company: "Off-Grid Distribution",
+            date: "Apr 2023 - Present",
+            responsibilities: [
+                ""
+            ]
+        },
+        {
+            title: "Software Engineer Intern",
             company: "Bulletproof",
-            date: "August 2023 - Present",
+            date: "Sep 2022 - Jan 2023",
             responsibilities: [
                 "Design, develop, and debug responsive web applications.",
                 "Utilize React, Node.JS, NoSQL, TypeScript and other technologies.",
                 "Engage in code reviews, design discussions and testing."
-            ]
-        },
-        {
-            title: "Software Engineering Tutor",
-            company: "University of New Brunswick",
-            date: "January 2021 - January 2023",
-            responsibilities: [
-                "Teaching students on computer science practices.",
-                "Topics include Machine-level Programming, Algorithms & Mathematical Logic, Web Development, Natural Language Processing, Calculus."
             ]
         },
         {
