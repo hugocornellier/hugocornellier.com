@@ -15,15 +15,17 @@ const App: React.FC = () => {
             path: "/",
             element: (
                 <>
-                    <Header />
-                    <Nav />
-                    <div className="container-fluid p-0">
-                        <About />
-                        <Education />
-                        <Experience />
-                        <Skills />
-                        <Awards />
-                        <Projects />
+                    <div className={"content"}>
+                        <Header />
+                        <Nav />
+                        <div className="container-fluid p-0">
+                            <About />
+                            <Education />
+                            <Experience />
+                            <Skills />
+                            <Awards />
+                            <Projects />
+                        </div>
                     </div>
                 </>
             )
