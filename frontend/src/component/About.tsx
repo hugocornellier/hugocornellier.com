@@ -1,8 +1,8 @@
 import React from 'react';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import pdf from '../data/CV.pdf'
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import Terminal from "./Terminal";
+import SocialIcon from "./SocialIcon";
 
 const About = () => {
     return (
@@ -26,19 +26,6 @@ const About = () => {
                 <br/>
             </div>
         </section>
-    );
-}
-
-interface SocialIconProps {
-    link: string;
-    icon: any; // or FontAwesomeIconProps
-}
-
-const SocialIcon: React.FC<SocialIconProps> = ({link, icon}) => {
-    return (
-        <a href={link} target="_blank" rel="noopener noreferrer" className="d-flex justify-content-center align-items-center rounded-circle social-icon project-icon">
-            <FontAwesomeIcon icon={icon} />
-        </a>
     );
 }
 

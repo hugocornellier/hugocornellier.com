@@ -12,16 +12,16 @@ const TerminalComponent = () => {
                 <br/><br/>
                 While at Off-Grid Distribution and Bulletproof Solutions, I’ve built my web development skills using technologies 
                 such as React, TypeScript, HTML5/CSS, along with libraries such as Tailwind. I am well-versed in both 
-                SQL and NoSQL, particularly MongoDB. I have strong communication skills, and I work well collaboratively 
-                or independently.
+                SQL and NoSQL, particularly MongoDB.
                 <br/><br/>
                 I am well versed in the latest software development methodologies - task estimation, prioritization, 
                 testing, code review, devops. My projects have involved both backend code optimization - where 
-                improvements are measured in milliseconds - and frontend user experience.
+                improvements are measured in milliseconds - and frontend user experience. I have strong communication 
+                skills, and I work well collaboratively or independently.
                 <br/><br/>
                  Let's connect! My LinkedIn and Github profiles, as well as my email address, can be found above.`
             ],
-            typeSpeed: 40,
+            typeSpeed: 24,
             backSpeed: 0,
             backDelay: 3000,
             loop: false,

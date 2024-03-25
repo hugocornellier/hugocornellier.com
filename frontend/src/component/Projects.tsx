@@ -1,7 +1,7 @@
 import React from 'react';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
-import { faGithub, faYoutube, IconDefinition } from "@fortawesome/free-brands-svg-icons";
+import { faGithub, faYoutube } from "@fortawesome/free-brands-svg-icons";
+import SocialIcon from "./SocialIcon";
 
 interface Project {
     title: string;
@@ -32,19 +32,12 @@ const ProjectItem: React.FC<ProjectItemProps> = ({ project }) => {
                 <div className="subheading mb-3 block w-full">
                     {type}
                     {skills && (
-                        <>
-                            <br/> Skills Used: {skills}
-                        </>
+                        <><br/> Skills Used: {skills}</>
                     )}
                 </div>
                 <div className="d-flex flex-row project-icons">
                     {socialLinks.map((link, index) => (
-                        link.link && (
-                            <a key={index} href={link.link}
-                               className="social-icons d-flex justify-content-center align-items-center rounded-circle project-icon">
-                                <FontAwesomeIcon icon={link.icon as IconDefinition}/>
-                            </a>
-                        )
+                        link.link && <SocialIcon link={link.link} icon={link.icon}/>
                     ))}
                 </div>
                 <br/>
