@@ -35,9 +35,11 @@ io.on("connection", (socket) => {
         userAgent ??= "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:124.0) Gecko/20100101 Firefox/124.0";
 
         const geo = geoip.lookup(requestIP);
+        const date = new Date();
 
         const row = {
-            'date': String(new Date()),
+            'date': String(date),
+            'timestamp': String((new Date).getTime()),
             'ip': requestIP,
             'country': geo.country,
             'region': geo.region,
