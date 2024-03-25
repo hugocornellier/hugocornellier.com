@@ -6,7 +6,7 @@ import { faGithub, faYoutube, IconDefinition } from "@fortawesome/free-brands-sv
 interface Project {
     title: string;
     type: string;
-    skills: string;
+    skills: string | null;
     githubLink: string | null;
     ytLink: string | null;
     playLink: string | null;
@@ -29,7 +29,14 @@ const ProjectItem: React.FC<ProjectItemProps> = ({ project }) => {
         <div className="resume-item d-flex flex-column flex-md-row mb-5">
             <div className="resume-content mr-auto">
                 <h3 className="mb-0 w-full">{title}</h3>
-                <div className="subheading mb-3 block w-full">{type}<br /> Skills Used: {skills}</div>
+                <div className="subheading mb-3 block w-full">
+                    {type}
+                    {skills && (
+                        <>
+                            <br/> Skills Used: {skills}
+                        </>
+                    )}
+                </div>
                 <div className="d-flex flex-row project-icons">
                     {socialLinks.map((link, index) => (
                         link.link && (
@@ -65,12 +72,12 @@ const Projects: React.FC = () => {
             ]
         },
         {
-            title: "Hugo Cornellier (YouTube) - 500,000+ Subscribers",
+            title: "Hugo Cornellier YouTube Channel (500K+ Subscribers)",
             type: "YouTube Channel",
             skills: "",
             githubLink: null,
             playLink: null,
-            ytLink: "https://youtube.com/hugocornellie",
+            ytLink: "https://youtube.com/hugocornellier",
             description: [
                 "A passion photography project turned viral led to a channel of 500K+ subscribers. ",
                 "Led to local and international media attention. "
