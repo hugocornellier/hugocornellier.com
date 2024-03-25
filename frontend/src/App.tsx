@@ -1,23 +1,42 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import About from "./component/About";
 import Awards from "./component/Awards";
 import Education from "./component/Education";
 import Experience from "./component/Experience";
-import Header from "./component/Header";
-import Nav from "./component/Nav";
+import Sidebar from "./component/Sidebar";
 import Projects from "./component/Projects";
 import Skills from "./component/Skills";
 import Views from "./component/Views";
+import {
+    createBrowserRouter,
+    RouterProvider
+} from "react-router-dom";
+import {
+    useEffect,
+    useState
+} from "react";
+import {Socket} from "socket.io-client";
+import {SocketHelper} from "./context/SocketHelper";
 
 const App: React.FC = () => {
+
+    const [socket, setSocket] = useState<Socket | undefined>();
+
+    useEffect(() => {
+        const initializedSocket = SocketHelper.init();
+        setSocket(initializedSocket);
+
+        return () => {
+            initializedSocket.disconnect(); // Disconnect socket when component unmounts
+        };
+    }, []);
+
     const router = createBrowserRouter([
         {
             path: "/",
             element: (
                 <>
                     <div className={"content"}>
-                        <Header />
-                        <Nav />
+                        <Sidebar socket={socket} />
                         <div className="container-fluid p-0">
                             <About />
                             <Education />
@@ -31,7 +50,7 @@ const App: React.FC = () => {
             )
         },
         {
-            path: "/test",
+            path: "/views",
             element: (
                 <>
                     <Views />
@@ -40,11 +59,7 @@ const App: React.FC = () => {
         }
     ]);
 
-    return (
-        <>
-            <RouterProvider router={router} />
-        </>
-    );
+    return <RouterProvider router={router} />
 };
 
 export default App;

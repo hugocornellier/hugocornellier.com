@@ -18,7 +18,7 @@ io.on("connection", (socket) => {
     socket.on("get_records", async () => {
         io.emit("get_records_ret", await db.getRecords('views'));
     })
-    socket.on("track_view_data", async () => {
+    socket.on("track_view_data", async (page) => {
         const headers = socket.conn.request.rawHeaders;
         let requestIP = null;
         let userAgent = null;
@@ -40,6 +40,7 @@ io.on("connection", (socket) => {
         const row = {
             'date': String(date),
             'timestamp': String((new Date).getTime()),
+            'page': page,
             'ip': requestIP,
             'country': geo.country,
             'region': geo.region,

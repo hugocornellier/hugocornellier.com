@@ -8,6 +8,7 @@ module.exports = {
             CREATE TABLE views (
                 date VARCHAR(150),
                 timestamp VARCHAR(150),
+                page VARCHAR(150),
                 ip VARCHAR(50),
                 country VARCHAR(150),
                 region VARCHAR(150),
@@ -42,7 +43,7 @@ module.exports = {
 
     insertEntry: async function insertEntry(row, table) {
         return new Promise(async (resolve, reject) => {
-            const columns = ['date', 'timestamp', 'ip', 'country', 'region', 'timezone', 'city', 'userAgent'];
+            const columns = ['date', 'timestamp', 'page', 'ip', 'country', 'region', 'timezone', 'city', 'userAgent'];
             const insertQuery = `
                 INSERT INTO ${table} (${columns.join(', ')}) 
                 VALUES (${Array(columns.length).fill('?').join(', ')})

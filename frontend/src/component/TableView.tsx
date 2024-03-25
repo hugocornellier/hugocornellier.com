@@ -4,6 +4,7 @@ interface RowData {
     city: string;
     country: string;
     date: string;
+    page: string;
     ip: string;
     region: string;
     timezone: string;
@@ -22,6 +23,7 @@ const TableView: React.FC<Props> = ({ data }) => {
                 <th>City</th>
                 <th>Country</th>
                 <th>Date</th>
+                <th>Page</th>
                 <th>IP</th>
                 <th>Region</th>
                 <th>Timezone</th>
@@ -34,6 +36,7 @@ const TableView: React.FC<Props> = ({ data }) => {
                     <td>{row.city}</td>
                     <td>{row.country}</td>
                     <td>{row.date}</td>
+                    <td>{row.page}</td>
                     <td>{row.ip}</td>
                     <td>{row.region}</td>
                     <td>{row.timezone}</td>

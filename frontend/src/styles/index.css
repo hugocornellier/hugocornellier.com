@@ -89,6 +89,14 @@ section ul {
     font-size: 45px;
 }
 
+.social-icons .fa-youtube {
+    font-size: 35px;
+}
+
+.social-icons .fa-play {
+    font-size: 35px;
+}
+
 .list-icons {
     font-size: 3rem;
 }
@@ -108,7 +116,7 @@ section#projects a.social-icons {
 }
 
 section#projects a.social-icons:hover {
-    color: #a6bdc3
+    color: #c3d2d6
 }
 
 section#about p.about-me {
