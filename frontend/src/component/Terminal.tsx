@@ -11,7 +11,7 @@ const TerminalComponent = () => {
                 `My name is Hugo Cornellier, and I am a passionate and driven full-stack developer.
                 <br/><br/>
                 While at Off-Grid Distribution and Bulletproof Solutions, I’ve built my web development skills using technologies 
-                such as React, TypeScript, HTML5/CSS, along with libraries such as Tailwind. I am well-versed in both 
+                such as React, TypeScript, HTML5/CSS, along with libraries such as Tailwind. I have experience with both 
                 SQL and NoSQL, particularly MongoDB.
                 <br/><br/>
                 I am well versed in the latest software development methodologies - task estimation, prioritization, 
