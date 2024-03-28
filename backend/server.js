@@ -4,6 +4,7 @@ const socketIO = require("socket.io")
 const geoip = require('geoip-lite');
 const app = express()
 const path = require('path')
+const uaParser = require('ua-parser-js');
 const server = http.createServer(app)
 const io = socketIO(server)
 const db = require("./db/db")
@@ -33,6 +34,14 @@ io.on("connection", (socket) => {
 
         requestIP ??= "173.34.38.168";
         userAgent ??= "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:124.0) Gecko/20100101 Firefox/124.0";
+
+        const ua = uaParser(userAgent);
+        const browser = ua.browser.name + " " + ua.browser.version
+        const os = ua.os.name + " " + ua.os.version
+        const device = ua.device.vendor + " " + ua.device.model
+        console.log("Browser:", browser)
+        console.log("OS:", os)
+        console.log("Device:", device)
 
         const geo = geoip.lookup(requestIP);
         const date = new Date();

@@ -32,7 +32,7 @@ const App: React.FC = () => {
 
     const router = createBrowserRouter([
         {
-            path: "/",
+            path: "",
             element: (
                 <>
                     <div className={"content"}>
@@ -53,7 +53,7 @@ const App: React.FC = () => {
             path: "/views",
             element: (
                 <>
-                    <Views />
+                    <Views socket={socket} />
                 </>
             )
         }

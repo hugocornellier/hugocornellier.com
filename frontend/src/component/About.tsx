@@ -19,9 +19,6 @@ const About = () => {
                     <SocialIcon link="https://github.com/hugocornellier" icon={faGithub}/>
                 </div>
                 <Terminal/>
-                <a href={pdf} target="_blank" rel="noopener noreferrer">
-                    View Resume as PDF
-                </a>
                 <br/>
                 <br/>
             </div>

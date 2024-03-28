@@ -1,22 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Socket } from "socket.io-client";
-import { SocketHelper } from "../context/SocketHelper";
 import TableView from './TableView';
+import {DefaultEventsMap} from "socket.io/dist/typed-events";
 
-const Views: React.FC = () => {
-    const [socket, setSocket] = useState<Socket>();
+interface Views {
+    socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined;
+}
+
+const Views: React.FC<Views> = ({ socket }) => {
     const [data, setData] = useState<any>(null);
-
-    useEffect(() => {
-        const initializedSocket = SocketHelper.init();
-        setSocket(initializedSocket);
-
-        return () => {
-            if (initializedSocket) {
-                initializedSocket.disconnect();
-            }
-        };
-    }, []);
 
     useEffect(() => {
         if (!socket) {
@@ -30,9 +22,7 @@ const Views: React.FC = () => {
 
     return (
         <>
-            {data !== null && (
-                <TableView data={data} />
-            )}
+            {data !== null && <TableView data={data} />}
         </>
     );
 };
