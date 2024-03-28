@@ -56,7 +56,7 @@ const Projects: React.FC = () => {
         {
             title: "MarioKartRuns",
             type: "Web Application",
-            skills: "React, TypeScript, CSS, Tailwind, HTML5, SQL",
+            skills: "React, TypeScript, CSS, Tailwind, HTML5, SQLite",
             githubLink: "https://github.com/hugocornellier/mariokartruns",
             ytLink: null,
             playLink: "https://mariokartruns.com/",
@@ -79,7 +79,7 @@ const Projects: React.FC = () => {
         {
             title: "hugocornellier.com",
             type: "Web Application",
-            skills: "React, TypeScript, CSS, Tailwind, HTML5, SQL",
+            skills: "React, TypeScript, CSS, Tailwind, HTML5, SQLite",
             githubLink: "https://github.com/hugocornellier/hugocornellier.com",
             ytLink: null,
             playLink: null,

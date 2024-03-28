@@ -50,14 +50,19 @@ section ul {
 .fa-play {
     position: relative;
     left: 1px;
-    font-size: 14px;
+    font-size: 26px;
 }
 
 .fa-github {
+    font-size: 40px
+}
+
+.fa-youtube {
     font-size: 30px;
 }
 
-.social-icons, .project-icons {
+.social-icons,
+.project-icons {
     gap: 10px;
 }
 
