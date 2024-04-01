@@ -22,10 +22,6 @@ const NavItem: React.FC<NavItemProps> = ({ title, href, socket, collapseSidebar,
         }
     };
 
-    let location = useLocation();
-    let test = new URL(href, window.origin + location.pathname);
-    console.log();
-
     return (
         <li className="nav-item">
             <a onClick={() => loadSection(title)} className="nav-link js-scroll-trigger" href={href}>{title}</a>
@@ -82,7 +78,7 @@ const Nav: React.FC<NavProps> = ({ socket }) => {
                 </ul>
                 <div className="dl-resume-btn" onClick={viewResume}>
                     <span>
-                        View Resume as PDF
+                        View as PDF
                     </span>
                 </div>
             </div>

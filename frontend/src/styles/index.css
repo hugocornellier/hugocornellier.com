@@ -86,19 +86,17 @@ section ul {
     height: 60px;
 }
 
-.social-icons .fa-linkedin-in {
-    font-size: 27px;
-}
-
-.social-icons .fa-github {
+.fa-github {
     font-size: 45px;
 }
 
-.social-icons .fa-youtube {
-    font-size: 35px;
+.fa-linkedin-in,
+.fa-linkedin  {
+    font-size: 27px;
 }
 
-.social-icons .fa-play {
+.fa-youtube,
+.fa-play{
     font-size: 35px;
 }
 
@@ -134,7 +132,7 @@ section#about p.about-me {
     align-items: center;
     justify-content: center;
     margin-top: 28px;
-    padding: 15px 35px;
+    padding: 10px 20px;
     background: #add8e633;
     border-radius: 8px;
     border: 2px dotted #a3a3c4;
