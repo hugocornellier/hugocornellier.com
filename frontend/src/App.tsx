@@ -34,32 +34,28 @@ const App: React.FC = () => {
         {
             path: "",
             element: (
-                <>
-                    <div className={"content"}>
-                        <Sidebar socket={socket} />
-                        <div className="container-fluid p-0">
-                            <About />
-                            <Education />
-                            <Experience />
-                            <Skills />
-                            <Awards />
-                            <Projects />
-                        </div>
+                <div className={"content"}>
+                    <Sidebar socket={socket}/>
+                    <div className="container-fluid p-0">
+                        <About/>
+                        <Education/>
+                        <Experience/>
+                        <Skills/>
+                        <Awards/>
+                        <Projects/>
                     </div>
-                </>
+                </div>
             )
         },
         {
             path: "/views",
             element: (
-                <>
-                    <Views socket={socket} />
-                </>
+                <Views socket={socket}/>
             )
         }
     ]);
 
-    return <RouterProvider router={router} />
+    return <RouterProvider router={router}/>
 };
 
 export default App;

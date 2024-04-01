@@ -1,5 +1,4 @@
 import React from 'react';
-import pdf from '../data/CV.pdf'
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import Terminal from "./Terminal";
 import SocialIcon from "./SocialIcon";
