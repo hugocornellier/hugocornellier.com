@@ -1,6 +1,6 @@
 import React from 'react';
-import { faPlay } from '@fortawesome/free-solid-svg-icons';
-import { faGithub, faYoutube } from "@fortawesome/free-brands-svg-icons";
+import {faPlay} from '@fortawesome/free-solid-svg-icons';
+import {faGithub, faYoutube} from "@fortawesome/free-brands-svg-icons";
 import SocialIcon from "./SocialIcon";
 
 interface Project {
@@ -15,14 +15,15 @@ interface Project {
 
 interface ProjectItemProps {
     project: Project;
+    track: (title: string) => void;
 }
 
-const ProjectItem: React.FC<ProjectItemProps> = ({ project }) => {
-    const { title, type, skills, githubLink, ytLink, playLink, description } = project;
+const ProjectItem: React.FC<ProjectItemProps> = ({project, track}) => {
+    const {title, type, skills, githubLink, ytLink, playLink, description} = project;
     const socialLinks = [
-        { icon: faGithub, link: githubLink },
-        { icon: faYoutube, link: ytLink },
-        { icon: faPlay, link: playLink }
+        {icon: faGithub, link: githubLink},
+        {icon: faYoutube, link: ytLink},
+        {icon: faPlay, link: playLink}
     ];
 
     return (
@@ -37,7 +38,7 @@ const ProjectItem: React.FC<ProjectItemProps> = ({ project }) => {
                 </div>
                 <div className="d-flex flex-row project-icons">
                     {socialLinks.map((link, index) => (
-                        link.link && <SocialIcon link={link.link} icon={link.icon}/>
+                        link.link && <SocialIcon track={track} link={link.link} icon={link.icon}/>
                     ))}
                 </div>
                 <br/>
@@ -51,7 +52,11 @@ const ProjectItem: React.FC<ProjectItemProps> = ({ project }) => {
     );
 }
 
-const Projects: React.FC = () => {
+interface ProjectsProps {
+    track: (title: string) => void;
+}
+
+const Projects: React.FC<ProjectsProps> = ({ track }) => {
     const projectData: Project[] = [
         {
             title: "MarioKartRuns",
@@ -105,7 +110,7 @@ const Projects: React.FC = () => {
             <div className="my-auto">
                 <h2 className="mb-5">Projects</h2>
                 {projectData.map((project, index) => (
-                    <ProjectItem key={index} project={project} />
+                    <ProjectItem track={track} key={index} project={project}/>
                 ))}
             </div>
         </section>

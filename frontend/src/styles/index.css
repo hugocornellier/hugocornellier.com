@@ -8,6 +8,25 @@ body {
     color: #868e96;
 }
 
+th,
+td {
+    padding: 5px 10px;
+}
+
+th {
+    background-color: black;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: rgba(211, 211, 211, 0.8); /* Grey background color */
+}
+
+tr:nth-child(odd) {
+    background-color: #f2f2f2; /* Grey background color */
+}
+
+
 @media (min-width: 992px) {
     div.content {
         padding-top: 0;

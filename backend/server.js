@@ -39,15 +39,28 @@ io.on("connection", (socket) => {
         const browser = ua.browser.name + " " + ua.browser.version
         const os = ua.os.name + " " + ua.os.version
         const device = ua.device.vendor + " " + ua.device.model
-        console.log("Browser:", browser)
+        console.log("\nBrowser:", browser)
         console.log("OS:", os)
         console.log("Device:", device)
 
         const geo = geoip.lookup(requestIP);
         const date = new Date();
+        const options = {
+            timeZone: 'America/Halifax', // Atlantic timezone
+            weekday: 'short', // Abbreviated weekday name (e.g., Tue)
+            month: 'short', // Abbreviated month name (e.g., Apr)
+            day: '2-digit', // Day of the month (e.g., 02)
+            year: 'numeric', // Full year (e.g., 2024)
+            hour12: false, // Use 24-hour format
+            hour: '2-digit', // Hour (e.g., 09)
+            minute: '2-digit', // Minute (e.g., 37)
+            second: '2-digit' // Second (e.g., 15)
+        };
+
+        const formattedDate = date.toLocaleString('en-US', options);
 
         const row = {
-            'date': String(date),
+            'date': String(formattedDate),
             'timestamp': String((new Date).getTime()),
             'page': page,
             'ip': requestIP,
@@ -55,17 +68,26 @@ io.on("connection", (socket) => {
             'region': geo.region,
             'timezone': geo.timezone,
             'city': geo.city,
-            'userAgent': userAgent
+            'userAgent': userAgent,
+            'browser': browser,
+            'os': os,
+            'device': device
         };
 
-        if (!(await db.checkIfTableExists('views'))) {
+        const tableExists = await db.checkIfTableExists('views')
+        if (!tableExists) {
             db.createTable();
         }
 
         db.insertEntry(row, 'views');
     });
 
-})
+    // Handle disconnect event
+    socket.on("disconnect", () => {
+        console.log("User disconnected");
+        // Additional cleanup or handling can be done here if needed
+    });
+});
 
 let home_path = app.settings['views'].substring(0, 5)
 const port = home_path === "/User" || home_path === "C:\\Us"

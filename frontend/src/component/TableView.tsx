@@ -9,6 +9,9 @@ interface RowData {
     region: string;
     timezone: string;
     userAgent: string;
+    browser: string;
+    os: string;
+    device: string;
 }
 
 interface Props {
@@ -20,27 +23,31 @@ const TableView: React.FC<Props> = ({ data }) => {
         <table>
             <thead>
             <tr>
-                <th>City</th>
-                <th>Country</th>
                 <th>Date</th>
                 <th>Page</th>
                 <th>IP</th>
+                <th>City</th>
+                <th>Country</th>
                 <th>Region</th>
                 <th>Timezone</th>
-                <th>User Agent</th>
+                <th>Browser</th>
+                <th>OS</th>
+                <th>Device</th>
             </tr>
             </thead>
             <tbody>
             {data.map((row, index) => (
                 <tr key={index}>
-                    <td>{row.city}</td>
-                    <td>{row.country}</td>
-                    <td>{row.date}</td>
+                    <td>{row.date} (ADT)</td>
                     <td>{row.page}</td>
                     <td>{row.ip}</td>
+                    <td>{row.city}</td>
+                    <td>{row.country}</td>
                     <td>{row.region}</td>
                     <td>{row.timezone}</td>
-                    <td>{row.userAgent}</td>
+                    <td>{row.browser}</td>
+                    <td>{row.os}</td>
+                    <td>{row.device}</td>
                 </tr>
             ))}
             </tbody>

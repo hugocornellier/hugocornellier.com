@@ -3,7 +3,7 @@ import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import Terminal from "./Terminal";
 import SocialIcon from "./SocialIcon";
 
-const About = () => {
+const About = (props: any) => {
     return (
         <section className="resume-section p-3 p-lg-5 d-flex d-column" id="about">
             <div className="my-auto w-full">
@@ -14,8 +14,8 @@ const About = () => {
                 <div className="subheading mb-1">Fredericton, Canada · <a
                     href="mailto:hugo.cornellier@gmail.com">hugo.cornellier@gmail.com</a></div>
                 <div className="d-flex flex-row social-icons mb-5">
-                    <SocialIcon link="https://linkedin.com/in/hugocornellier" icon={faLinkedin}/>
-                    <SocialIcon link="https://github.com/hugocornellier" icon={faGithub}/>
+                    <SocialIcon track={props.track} link="https://linkedin.com/in/hugocornellier" icon={faLinkedin}/>
+                    <SocialIcon track={props.track} link="https://github.com/hugocornellier" icon={faGithub}/>
                 </div>
                 <Terminal/>
                 <br/>

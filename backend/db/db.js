@@ -14,7 +14,10 @@ module.exports = {
                 region VARCHAR(150),
                 timezone VARCHAR(150),
                 city VARCHAR(150),
-                userAgent VARCHAR(150)
+                userAgent VARCHAR(150),
+                browser VARCHAR(150),
+                os VARCHAR(150),
+                device VARCHAR(150)
             )
         `)
     },
@@ -43,7 +46,7 @@ module.exports = {
 
     insertEntry: async function insertEntry(row, table) {
         return new Promise(async (resolve, reject) => {
-            const columns = ['date', 'timestamp', 'page', 'ip', 'country', 'region', 'timezone', 'city', 'userAgent'];
+            const columns = ['date', 'timestamp', 'page', 'ip', 'country', 'region', 'timezone', 'city', 'userAgent', 'browser', 'os', 'device'];
             const insertQuery = `
                 INSERT INTO ${table} (${columns.join(', ')}) 
                 VALUES (${Array(columns.length).fill('?').join(', ')})

@@ -30,19 +30,28 @@ const App: React.FC = () => {
         };
     }, []);
 
+    const track = (title: string) => {
+        if (title.length > 0 && /^[a-zA-Z]/.test(title)) {
+            title = title.charAt(0).toUpperCase() + title.slice(1);
+        }
+        if (socket) {
+            socket.emit("track_view_data", title);
+        }
+    };
+
     const router = createBrowserRouter([
         {
             path: "",
             element: (
                 <div className={"content"}>
-                    <Sidebar socket={socket}/>
+                    <Sidebar track={track} socket={socket}/>
                     <div className="container-fluid p-0">
-                        <About/>
+                        <About track={track} />
                         <Education/>
                         <Experience/>
                         <Skills/>
                         <Awards/>
-                        <Projects/>
+                        <Projects track={track} />
                     </div>
                 </div>
             )

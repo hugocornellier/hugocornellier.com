@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Socket } from "socket.io-client";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
-import {Link, useLocation} from "react-router-dom";
 import pdf from '../data/CV.pdf'
 
 interface NavItemProps {
+    track: (title: string) => void;
     title: string;
     href: string;
     socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined;
@@ -12,11 +12,9 @@ interface NavItemProps {
     show: boolean;
 }
 
-const NavItem: React.FC<NavItemProps> = ({ title, href, socket, collapseSidebar, show }) => {
+const NavItem: React.FC<NavItemProps> = ({ track, title, href, socket, collapseSidebar, show }) => {
     const loadSection = (title: string) => {
-        if (socket) {
-            socket.emit("track_view_data", title);
-        }
+        track(title)
         if (show) {
             collapseSidebar();
         }
@@ -30,10 +28,11 @@ const NavItem: React.FC<NavItemProps> = ({ title, href, socket, collapseSidebar,
 }
 
 interface NavProps {
+    track: (title: string) => void;
     socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined;
 }
 
-const Nav: React.FC<NavProps> = ({ socket }) => {
+const Nav: React.FC<NavProps> = ({ track, socket }) => {
 
     const [show, setShow] = useState<boolean>(false);
 
@@ -44,6 +43,7 @@ const Nav: React.FC<NavProps> = ({ socket }) => {
     const navItems: NavItemProps[] = [
         "About", "Education", "Experience", "Skills", "Awards", "Projects"
     ].map(title => ({
+        track,
         title,
         href: `#${title.toLowerCase()}`,
         socket,
@@ -52,6 +52,7 @@ const Nav: React.FC<NavProps> = ({ socket }) => {
     }));
 
     const viewResume = () => {
+        track("View Resume as PDF")
         window.open(pdf, '_blank');
     };
 
@@ -73,7 +74,7 @@ const Nav: React.FC<NavProps> = ({ socket }) => {
             <div className={"flex flex-column justify-content-center items-center collapse navbar-collapse " + (show ? 'show' : '')} id="navbarSupportedContent">
                 <ul className="navbar-nav">
                     {navItems.map((item, index) => (
-                        <NavItem key={index} {...item} socket={socket} collapseSidebar={collapseSidebar} show={show} />
+                        <NavItem key={index} {...item} socket={socket} track={track} collapseSidebar={collapseSidebar} show={show} />
                     ))}
                 </ul>
                 <div className="dl-resume-btn" onClick={viewResume}>

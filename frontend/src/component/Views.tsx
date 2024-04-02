@@ -3,11 +3,11 @@ import { Socket } from "socket.io-client";
 import TableView from './TableView';
 import {DefaultEventsMap} from "socket.io/dist/typed-events";
 
-interface Views {
+interface ViewsProps {
     socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined;
 }
 
-const Views: React.FC<Views> = ({ socket }) => {
+const Views: React.FC<ViewsProps> = ({ socket }) => {
     const [data, setData] = useState<any>(null);
 
     useEffect(() => {
