@@ -30,7 +30,7 @@ const Experience: React.FC = () => {
     const experienceData: Responsibility[] = [
         {
             title: "Full Stack Developer",
-            company: "Off-Grid Distribution",
+            company: "ScotiaBank",
             date: "Apr 2023 - Present",
             responsibilities: [
                 "Use React, TypeScript to create responsive user interfaces",
