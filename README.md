@@ -1,6 +1,6 @@
 # HugoCornellier.com
 
-Welcome to my personal portfolio website! You will find an about me section, a portfolio and a resume.
+Welcome to my personal portfolio website! 
 
 View it live at: [https://hugocornellier.com](https://hugocornellier.com)
 
