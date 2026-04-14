@@ -253,3 +253,10 @@ header.top {
 footer.bottom {
     margin-bottom: var(--space-lg);
 }
+
+.banner-mobile { display: none; }
+
+@media (max-width: 600px) {
+    .banner-desktop { display: none; }
+    .banner-mobile { display: block; }
+}

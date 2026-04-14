@@ -31,7 +31,8 @@ const App: React.FC = () => {
                 <Layout>
                     <h2>
                         <a href="https://git.io/typing-svg">
-                            <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=25&duration=2000&pause=1000&color=333333&vCenter=true&random=false&width=1000&height=30&lines=Hi+there%2C+I'm+Hugo+Cornellier+%F0%9F%91%8B%F0%9F%8F%BB;I'm+a+Software+Engineer+%F0%9F%91%A8%E2%80%8D%F0%9F%92%BB;Flutter+%26+Dart+Enthusiast,+Open+Source+Contributor+%F0%9F%90%A6;25k%2B+Monthly+Downloads+on+pub.dev+%F0%9F%93%A6" alt="hugocornellier's banner" />
+                            <img className="banner-desktop" src="https://readme-typing-svg.demolab.com?font=Roboto&weight=700&size=25&duration=2000&pause=1000&color=333333&vCenter=true&random=false&width=650&height=30&lines=Hi+there%2C+I'm+Hugo+Cornellier+%F0%9F%91%8B%F0%9F%8F%BB;I'm+a+Software+Engineer+%F0%9F%91%A8%E2%80%8D%F0%9F%92%BB;Flutter+%26+Dart+Enthusiast,+Open+Source+Contributor+%F0%9F%90%A6;25k%2B+Monthly+Downloads+on+pub.dev+%F0%9F%93%A6" alt="hugocornellier's banner" />
+                            <img className="banner-mobile" src="https://readme-typing-svg.demolab.com?font=Roboto&weight=700&size=17&duration=2000&pause=1000&color=333333&vCenter=true&random=false&width=350&height=28&lines=Hi%2C+I'm+Hugo+Cornellier+%F0%9F%91%8B%F0%9F%8F%BB;Software+Engineer+%F0%9F%91%A8%E2%80%8D%F0%9F%92%BB;Flutter+%26+Dart+Enthusiast+%F0%9F%90%A6;25k%2B+Monthly+Downloads+%F0%9F%93%A6" alt="hugocornellier's banner" />
                         </a>
                     </h2>
                     <hr />
