@@ -29,19 +29,11 @@ const App: React.FC = () => {
             path: "",
             element: (
                 <Layout>
-                    <article>
-                        <h2>Hello, World! I'm Hugo 👋</h2>
-                        <p>You may know me as the author of <a href="https://agelapse.com/">AgeLapse</a>.</p>
-                        <p>
-                            I'm a Developer with 3 years of experience and a passion for bringing ideas to life. Growing up in the '90s and early
-                            2000s, I fell in love with the internet, and that passion has driven me to design and
-                            develop applications and websites that are fast, responsive, and accessible to everyone.
-                            <br/><br/>
-                            💼 Interested in working together? Reach out to me via email.
-                            <br/>
-                            💬 Got a question or just curious about something? Feel free to ask!
-                        </p>
-                    </article>
+                    <h2>
+                        <a href="https://git.io/typing-svg">
+                            <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=25&duration=2000&pause=1000&color=FF2D2D&vCenter=true&random=false&width=1000&height=30&lines=Hi+there%2C+I'm+Hugo+Cornellier+%F0%9F%91%8B%F0%9F%8F%BB;I'm+a+Software+Engineer+%F0%9F%91%A8%E2%80%8D%F0%9F%92%BB;Flutter+%26+Dart+Enthusiast,+Open+Source+Contributor+%F0%9F%90%A6;25k%2B+Monthly+Downloads+on+pub.dev+%F0%9F%93%A6" alt="hugocornellier's banner" />
+                        </a>
+                    </h2>
                     <hr />
                     <ul className="no-bullets">
                         <li>
