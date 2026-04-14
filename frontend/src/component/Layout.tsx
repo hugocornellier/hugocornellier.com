@@ -1,5 +1,5 @@
 import React from "react";
-import pdf from '../data/resume.pdf';
+import pdf from '../data/hugo_cornellier_resume.pdf';
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
