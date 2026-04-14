@@ -33,11 +33,9 @@ const App: React.FC = () => {
                         <h2>Hello, World! I'm Hugo 👋</h2>
                         <p>You may know me as the author of <a href="https://agelapse.com/">AgeLapse</a>.</p>
                         <p>
-                            I'm a Developer with a passion for bringing ideas to life. Growing up in the '90s and early
+                            I'm a Developer with 3 years of experience and a passion for bringing ideas to life. Growing up in the '90s and early
                             2000s, I fell in love with the internet, and that passion has driven me to design and
                             develop applications and websites that are fast, responsive, and accessible to everyone.
-                            <br/><br/>
-                            I am currently seeking my first Junior Developer role.
                             <br/><br/>
                             💼 Interested in working together? Reach out to me via email.
                             <br/>
@@ -46,6 +44,16 @@ const App: React.FC = () => {
                     </article>
                     <hr />
                     <ul className="no-bullets">
+                        <li>
+                            <a href="/blog-agelapse-2026-performance">2026 Performance Updates: Face Detection in AgeLapse</a>
+                            <br />
+                            <time className="deemphasized">10 Apr 2026</time>
+                        </li>
+                        <li>
+                            <a href="/blog-agelapse-desktop">Introducing AgeLapse Desktop</a>
+                            <br />
+                            <time className="deemphasized">15 Jan 2025</time>
+                        </li>
                         <li>
                             <a href="/blog-may-2nd-2024">Affine Transformations in Flutter: A Guide</a>
                             <br />
@@ -98,8 +106,8 @@ const App: React.FC = () => {
                     <div>
                         <h1>Using Affine Transformations to Stabilize Images on Two (2) Key Landmarks</h1>
                         <p>
-                            Stabilizing a series of images involves aligning key landmarks—such as eyes or other facial
-                            features—across multiple frames. This process can significantly improve consistency in
+                            Stabilizing a series of images involves aligning key landmarks, such as eyes or other facial
+                            features, across multiple frames. This process can significantly improve consistency in
                             applications like time-lapse creation or facial analysis.
                             <br/><br/>
                             In this post, we'll explore how to
@@ -202,6 +210,131 @@ canvas.restore();
                             resulting in a smooth and stable sequence.
                         </p>
                     </div>
+                </Layout>
+            )
+        },
+        {
+            path: "/blog-agelapse-desktop",
+            element: (
+                <Layout>
+                    <article>
+                        <h1>Introducing AgeLapse Desktop</h1>
+                        <time className="deemphasized">15 Jan 2025</time>
+                        <p>
+                            AgeLapse has been available on mobile for a while now, helping users document
+                            their journey through daily self-portrait time-lapses. Over that time, the most
+                            common request has been simple: a desktop version.
+                            <br/><br/>
+                            Today, I'm releasing AgeLapse Desktop for the first time. Here's what that means
+                            and what to expect.
+                        </p>
+
+                        <h2>Why a Desktop App?</h2>
+                        <p>
+                            Processing large photo libraries is demanding. On mobile, rendering and exporting
+                            a multi-year time-lapse can take a long time and strain battery life. On desktop,
+                            the same workload is handled with significantly more headroom, both in CPU and
+                            available memory.
+                            <br/><br/>
+                            There's also the matter of workflow. Many users have years of photos already stored
+                            on their computers, and importing them into a mobile app has never been ideal. A
+                            native desktop app solves that directly.
+                        </p>
+
+                        <h2>Key Features</h2>
+                        <ul>
+                            <li>
+                                <strong>Full library import:</strong> Load photos directly from your file system,
+                                including existing archives from other apps.
+                            </li>
+                            <li>
+                                <strong>Face detection and alignment:</strong> The same landmark-based alignment
+                                used in the mobile app is available here, now with faster processing times on
+                                desktop hardware.
+                            </li>
+                            <li>
+                                <strong>Export control:</strong> Choose your output resolution, frame rate, and
+                                format before exporting.
+                            </li>
+                            <li>
+                                <strong>Fully offline:</strong> Everything runs locally. No account required,
+                                no uploads.
+                            </li>
+                        </ul>
+
+                        <h2>Getting Started</h2>
+                        <p>
+                            Download the latest release from the <a href="https://agelapse.com/">AgeLapse website</a>.
+                            The desktop app is currently available for macOS, with Windows support planned for a
+                            future release.
+                        </p>
+
+                        <h2>What's Next</h2>
+                        <p>
+                            This is the first release, so there is still plenty of room to grow. Upcoming features
+                            include batch processing, improved alignment controls, and a more polished onboarding
+                            experience. Feedback is always welcome.
+                        </p>
+                    </article>
+                </Layout>
+            )
+        },
+        {
+            path: "/blog-agelapse-2026-performance",
+            element: (
+                <Layout>
+                    <article>
+                        <h1>2026 Performance Updates: Face Detection in AgeLapse</h1>
+                        <time className="deemphasized">10 Apr 2026</time>
+                        <p>
+                            Over the past few months, I've been focused on improving the performance of face
+                            detection in AgeLapse. This post covers the key changes, why they were made, and
+                            what the results look like in practice.
+                        </p>
+
+                        <h2>The Problem</h2>
+                        <p>
+                            Face detection is one of the most computationally intensive parts of the AgeLapse
+                            pipeline. For users with large photo libraries, running detection across hundreds or
+                            thousands of images was slow enough to be a real friction point. The goal this year
+                            was to address that without sacrificing accuracy.
+                        </p>
+
+                        <h2>What Changed</h2>
+                        <ul>
+                            <li>
+                                <strong>Detection pipeline refactor:</strong> The face detection logic was
+                                restructured to reduce redundant processing. Previously, each image was processed
+                                independently with no shared state; the updated pipeline caches intermediate
+                                results and skips unnecessary recomputation where safe to do so.
+                            </li>
+                            <li>
+                                <strong>Concurrency improvements:</strong> Detection now runs across multiple
+                                threads where the platform allows it, reducing total wall-clock time on
+                                multi-core hardware.
+                            </li>
+                            <li>
+                                <strong>Tighter landmark filtering:</strong> Low-confidence detections are now
+                                filtered earlier in the pipeline, cutting down on wasted alignment attempts and
+                                downstream errors.
+                            </li>
+                        </ul>
+
+                        <h2>Results</h2>
+                        <p>
+                            In testing on a library of 500 images, end-to-end detection time dropped by roughly
+                            40% compared to the previous version. Alignment accuracy remained consistent, and
+                            the false-positive rate on difficult images (poor lighting, partial occlusion)
+                            improved due to the tighter filtering thresholds.
+                        </p>
+
+                        <h2>What's Next</h2>
+                        <p>
+                            There is still room for improvement, particularly around edge cases: extreme angles,
+                            low-resolution inputs, and images with multiple faces. Those are the areas I'm
+                            looking at next.
+                        </p>
+                    </article>
                 </Layout>
             )
         },
